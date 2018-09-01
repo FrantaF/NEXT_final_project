@@ -4,6 +4,9 @@ Rails.application.routes.draw do
    post "/" => "users#home"
    get "/" => "users#home" 
 
+   post "/subscriptions/pricing_tables" => "subscriptions#pricing_tables"
+   get "/subscriptions/pricing_tables" => "subscriptions#pricing_tables"
+
    post "/users/dashboard" => "users#dashboard"
    get "/users/dashboard" => "users#dashboard"
 
