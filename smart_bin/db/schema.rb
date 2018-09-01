@@ -108,6 +108,7 @@ ActiveRecord::Schema.define(version: 2018_08_31_074548) do
     t.string "phone_number"
     t.bigint "company_id"
     t.bigint "group_id"
+    t.string "email", default: "", null: false
     t.integer "role", default: 0
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"

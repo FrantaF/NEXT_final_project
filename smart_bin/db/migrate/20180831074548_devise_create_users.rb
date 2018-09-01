@@ -9,6 +9,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       t.string :phone_number
       t.references :company
       t.references :group
+      t.string :email, null: false, default: ""
       t.integer :role, default: 0
 
       ## Recoverable

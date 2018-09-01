@@ -41,7 +41,7 @@
     </li>
 
     <li class="nav-item">           
-      <%= link_to "Client Login", "/login", method: :get, :class => "nav-link"%> 
+      <%= link_to "Client Login", "/sign_in", method: :get, :class => "nav-link"%> 
     </li>
 
   <!--   <li class="nav-item">           
@@ -52,13 +52,17 @@
 
 </nav>
 
+<!-- This is for Devise. It messes up the page layout -->
+<!-- <p class="notice"><%#= notice %></p>
+  <p class="alert"><%#= alert %></p> -->
 
-<%= yield %>
+
+  <%= yield %>
 
 
-<nav class="navbar fixed-bottom navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Fixed bottom</a>
-</nav>
+  <nav class="navbar fixed-bottom navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Fixed bottom</a>
+  </nav>
 
 </body>
 
