@@ -17,7 +17,7 @@
   <ul class="navbar-nav">
 
     <li class="nav-item">
-      <a class="nav-link" href="#">Cool Bin</a>
+      <%= link_to "Cool bin", "/", method: :post, :class => "nav-link"%>       
     </li>       
 
   </ul>
@@ -41,7 +41,7 @@
     </li>
 
     <li class="nav-item">           
-      <%= link_to "Client Login", "", method: :delete, :class => "nav-link"%> 
+      <%= link_to "Client Login", "/login", method: :get, :class => "nav-link"%> 
     </li>
 
   <!--   <li class="nav-item">           

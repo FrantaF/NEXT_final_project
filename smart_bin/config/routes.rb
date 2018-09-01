@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
 
-   root 'users#homepage'
+   root 'users#home'
+
+   post "/" => "users#home"
+   get "/" => "users#home"
+
+   post "/login" => "login#login"
+   get "/login" => "login#login"
 
    devise_for :users
 
