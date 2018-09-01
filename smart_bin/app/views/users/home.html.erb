@@ -1,0 +1,125 @@
+<script type="text/javascript">
+
+  function registration_form_display(){
+    let sender = document.getElementById("login-registration-link");      
+
+    let login = document.getElementById("login-box");      
+    let registration = document.getElementById("registration-box");      
+
+    if (login.style.display === "none") {
+      login.style.display = "block";
+      sender.innerHTML = "or Register"
+      registration.style.display = "none";
+    } else {
+      login.style.display = "none";
+      sender.innerHTML = "Login"
+      registration.style.display = "block";
+    }
+  }
+</script>
+
+<div class="jumbotron">
+  <div class="container container-fluid">
+    <div class="row">
+      <div class="col-sm-12 col-md-6">
+        <%= image_tag('analytics.png', :class => "mx-auto d-block img-fluid homepage-pic") %>     
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <h1>Cool Bin</h1>
+        <h2> We are an awesome company </h2>
+        <p>These are some of the cool things we do</p>
+        <%= button_to 'Subscription Plans', root_url, method: :post, :class => 'btn btn-success' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container container-fluid">
+  <div class="row">
+
+    <div class="col-sm-12 text-center">
+      <h2>Solutions</h2>
+    </div>
+
+    <div class="col-sm-12 col-md-4">
+      <div class="card homepage-card">
+        <%= image_tag('monitoring.jpg', :class => "mx-auto d-block img-fluid homepage-pic") %>
+        <div class="card-body">          
+          <p class="card-text">Intelligent Monitoring is the IoT solution that is revolutionizing how Smart Cities and private companies service their container assets.</p>
+          <%= link_to "tell me more" "" %> 
+        </div>
+      </div>      
+    </div>  
+
+    <div class="col-sm-12 col-md-4">
+      <div class="card homepage-card">
+        <%= image_tag('raspberry_pi.jpg', :class => "mx-auto d-block img-fluid homepage-pic") %>
+        <div class="card-body">          
+          <p class="card-text">SmartBin's IoT level sensors are the world’s smartest and most widely deployed. Our suite of sensors are compact, robust, wireless, and proven in many container types.</p>
+          <%= link_to "tell me more" "" %> 
+        </div>
+      </div>      
+    </div>
+
+    <div class="col-sm-12 col-md-4">
+      <div class="card homepage-card">
+        <%= image_tag('analytics.png', :class => "mx-auto d-block img-fluid homepage-pic") %>
+        <div class="card-body">          
+          <p class="card-text">Monitor your containers and plan optimized routes from anywhere. SmartBin Live is the IoT game changer for collectors and distributors around the world.</p>
+          <%= link_to "tell me more" "" %> 
+        </div>
+      </div>      
+    </div>
+
+  </div>
+
+</div>
+
+<div class="container conatiner-fluid login-container"> 
+
+  <%= form_for :session, url: "", id: "session-form", :html => {:class => "login-form"} do |form| %> 
+
+  <div id="login-box" class="login-box">
+
+    <div class="form-group">  
+      <input class="form-control input-sm" type="text" placeholder="Email" style='text-align: center;' name="session[email]">
+    </div>
+
+    <div class="form-group">  
+      <input class="form-control" type="password" placeholder="Password" style='text-align: center;' name="session[password]">
+    </div>                    
+
+    <div class="form-group">  
+      <button type="submit" class="btn btn-success btn-block">Login</button>
+    </div>        
+
+  </div>
+  <% end %>
+
+
+  <div id="registration-box" class="registration-box" style="display: none;">
+
+    <%= form_for :login, url: "", id: "login-form", :html => {:class => "login-form"} do |form| %> 
+    <div class="form-group">  
+      <input class="form-control input-sm" type="text" placeholder="Email" style='text-align: center;' name="user[email]">
+    </div>
+
+    <div class="form-group">  
+      <input class="form-control" type="password" placeholder="Password" style='text-align: center;' name="user[password]">
+    </div>                    
+
+    <div class="form-group">  
+      <button type="submit" class="btn btn-info btn-block">Register</button>
+    </div>        
+
+  </div>
+
+  <div class="form-group" align="center">  
+    <%= link_to "or Register", "", :class => '', :id => "login-registration-link", 
+    :onclick => "event.preventDefault(); registration_form_display();" %>
+  </div>
+
+  <% end %>
+
+</div>
+
