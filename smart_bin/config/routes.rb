@@ -4,6 +4,9 @@ Rails.application.routes.draw do
    post "/" => "users#home"
    get "/" => "users#home" 
 
+   post "/solutions" => "users#solutions"
+   get "/sultions" => "users#solutions" 
+
    post "/contact" => "users#contact"
    get "/contact" => "users#contact" 
 
