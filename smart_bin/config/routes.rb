@@ -2,6 +2,9 @@ Rails.application.routes.draw do
 
    root 'users#home'
 
+   post "/users/dashboard" => "users#dashboard"
+   get "/users/dashboard" => "users#dashboard"
+
    post "/" => "users#home"
    get "/" => "users#home"
 
