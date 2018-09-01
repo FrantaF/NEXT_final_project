@@ -1,17 +1,13 @@
 // Place all the styles related to the login controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.homepage-pic{
-   width: 300px;
-}
-.homepage-card{
-   width: 300px;
+
+
+.login-container{
+   transform: translate(0px, 50%); 
+   max-width: 400px;
 }
 
-.card-body{
-   text-align: center;
-}
-
-.card-text{
-   text-align: center;
-}
+.login-form{
+   margin-top: 3%;   
+}  
