@@ -5,8 +5,7 @@ class Users::SessionsController < Devise::SessionsController
 
   # GET /resource/sign_in
   def new
-    super
-    redirect_to "users/sign_in"
+    render template: "users/sign_in"
   end
 
   # POST /resource/sign_in

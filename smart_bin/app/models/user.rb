@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable, :validatable
 
-  belongs_to :company
-  belongs_to :group
+  # belongs_to :company
+  # belongs_to :group
 
 end

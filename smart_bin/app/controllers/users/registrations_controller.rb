@@ -5,9 +5,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
-  # def new
-  #   super
-  # end
+  def new    
+    super
+    # This is how to create a test user in IRB
+    # Note: email, name must be unique
+    # User.create!({:email => "me@mail.com", :password => "123456", :password_confirmation => "123456", :name => "username" })
+  end
 
   # POST /resource
   # def create
@@ -38,12 +41,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  # protected
+  protected
 
   # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_up_params
-  #   devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
-  # end
+  def configure_sign_up_params
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
+  end
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_account_update_params

@@ -106,8 +106,6 @@ ActiveRecord::Schema.define(version: 2018_08_31_074548) do
     t.string "username", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "phone_number"
-    t.bigint "company_id"
-    t.bigint "group_id"
     t.string "email", default: "", null: false
     t.integer "role", default: 0
     t.string "reset_password_token"
@@ -115,8 +113,6 @@ ActiveRecord::Schema.define(version: 2018_08_31_074548) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["company_id"], name: "index_users_on_company_id"
-    t.index ["group_id"], name: "index_users_on_group_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end

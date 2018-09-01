@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
    #overriding devise   
    devise_scope :user do
+      post "/login" => "users/sessions#create"
+      get "/login" => "users/sessions#create"
       post '/sign_in' => 'users/sessions#new'      
       get '/sign_in' => 'users/sessions#new'      
    end
