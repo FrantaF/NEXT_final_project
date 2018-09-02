@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
 
   get 'braintree/payment' => "braintree#payment"
-  get 'braintree/checkout' => "braintree#checkout"  
+  get 'braintree/checkout' => "braintree#checkout"
+  post 'braintree/checkout' => "braintree#checkout"  
 
   root 'users#home'
   post "/" => "users#home"
