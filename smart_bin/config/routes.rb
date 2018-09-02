@@ -22,6 +22,7 @@ Rails.application.routes.draw do
       get "/login" => "users/sessions#create"
       post '/sign_in' => 'users/sessions#new'      
       get '/sign_in' => 'users/sessions#new'      
+      delete '/sign_out' => 'users/sessions#destroy'            
    end
 
    devise_for :users, controllers: { registrations: "registrations"}

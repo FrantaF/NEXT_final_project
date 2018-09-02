@@ -19,15 +19,16 @@ class Users::SessionsController < Devise::SessionsController
       redirect_to session[:return_to]
       session[:return_to] = nil
     else
-      redirect_to users_dashboard_path
-      
+      redirect_to users_dashboard_path      
     end    
   end
 
   # DELETE /resource/sign_out
-  # def destroy
-  #   super
-  # end
+  def destroy
+   signed_out = (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))
+   set_flash_message! :notice, :signed_out if signed_out
+   redirect_to root_url   
+ end
 
   # protected
 
