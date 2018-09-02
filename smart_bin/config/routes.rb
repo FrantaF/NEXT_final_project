@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   get "/" => "users#home" 
 
   post "/solutions" => "users#solutions"
-  get "/sultions" => "users#solutions" 
+  get "/solutions" => "users#solutions" 
 
   post "/contact" => "users#contact"
   get "/contact" => "users#contact" 
