@@ -16,7 +16,7 @@ Rails.application.routes.draw do
    post "/users/dashboard" => "users#dashboard"
    get "/users/dashboard" => "users#dashboard"
 
-   #overriding devise   
+   #overriding devise      
    devise_scope :user do
       post "/login" => "users/sessions#create"
       get "/login" => "users/sessions#create"
@@ -24,7 +24,7 @@ Rails.application.routes.draw do
       get '/sign_in' => 'users/sessions#new'      
    end
 
-   devise_for :users
+   devise_for :users, controllers: { registrations: "registrations"}
 
    resources :dustbins
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
