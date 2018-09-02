@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   get 'braintree/payment' => "braintree#payment"
   get 'braintree/checkout' => "braintree#checkout"
   post 'braintree/checkout' => "braintree#checkout"  
@@ -29,7 +30,7 @@ Rails.application.routes.draw do
     delete '/sign_out' => 'users/sessions#destroy'            
   end
 
-  devise_for :users, controllers: { registrations: "registrations"}
+  devise_for :users, controllers: { registrations: "registrations"} 
 
   resources :dustbins
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
