@@ -10,9 +10,18 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   # POST /resource/sign_in
+  #overwritting Devise method with custom redirect
   def create
-    super    
-    # render template: "users/sign_in"
+    self.resource = warden.authenticate!(auth_options)
+    set_flash_message(:notice, :signed_in) if is_navigational_format?
+    sign_in(resource_name, resource)
+    if !session[:return_to].blank?
+      redirect_to session[:return_to]
+      session[:return_to] = nil
+    else
+      redirect_to users_dashboard_path
+      
+    end    
   end
 
   # DELETE /resource/sign_out
