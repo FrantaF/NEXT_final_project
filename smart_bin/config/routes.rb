@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'braintree/new'
+  get 'payment/index'
    root 'users#home'
    post "/" => "users#home"
    get "/" => "users#home" 
