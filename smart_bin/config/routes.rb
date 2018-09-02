@@ -1,34 +1,35 @@
 Rails.application.routes.draw do
 
-  get 'braintree/new'
-  get 'payment/index'
-   root 'users#home'
-   post "/" => "users#home"
-   get "/" => "users#home" 
+  get 'braintree/payment' => "braintree#payment"
+  get 'braintree/checkout' => "braintree#checkout"  
 
-   post "/solutions" => "users#solutions"
-   get "/sultions" => "users#solutions" 
+  root 'users#home'
+  post "/" => "users#home"
+  get "/" => "users#home" 
 
-   post "/contact" => "users#contact"
-   get "/contact" => "users#contact" 
+  post "/solutions" => "users#solutions"
+  get "/sultions" => "users#solutions" 
 
-   post "/subscriptions/pricing_tables" => "subscriptions#pricing_tables"
-   get "/subscriptions/pricing_tables" => "subscriptions#pricing_tables"
+  post "/contact" => "users#contact"
+  get "/contact" => "users#contact" 
 
-   post "/users/dashboard" => "users#dashboard"
-   get "/users/dashboard" => "users#dashboard"
+  post "/subscriptions/pricing_tables" => "subscriptions#pricing_tables"
+  get "/subscriptions/pricing_tables" => "subscriptions#pricing_tables"
+
+  post "/users/dashboard" => "users#dashboard"
+  get "/users/dashboard" => "users#dashboard"
 
    #overriding devise      
    devise_scope :user do
-      post "/login" => "users/sessions#create"
-      get "/login" => "users/sessions#create"
-      post '/sign_in' => 'users/sessions#new'      
-      get '/sign_in' => 'users/sessions#new'      
-      delete '/sign_out' => 'users/sessions#destroy'            
-   end
+    post "/login" => "users/sessions#create"
+    get "/login" => "users/sessions#create"
+    post '/sign_in' => 'users/sessions#new'      
+    get '/sign_in' => 'users/sessions#new'      
+    delete '/sign_out' => 'users/sessions#destroy'            
+  end
 
-   devise_for :users, controllers: { registrations: "registrations"}
+  devise_for :users, controllers: { registrations: "registrations"}
 
-   resources :dustbins
+  resources :dustbins
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
