@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   get 'braintree/checkout' => "braintree#checkout"
   post 'braintree/checkout' => "braintree#checkout"  
 
+  post "/employee_profiles" => "users#employee_profiles"
+  get "/employee_profiles" => "users#employee_profiles"
+
+
   root 'users#home'
   post "/" => "users#home"
   get "/" => "users#home" 

@@ -18,6 +18,11 @@ class UsersController < ApplicationController
    def contact
    end
 
+   def employe_profiles
+
+   end
+
+
 end
 
 

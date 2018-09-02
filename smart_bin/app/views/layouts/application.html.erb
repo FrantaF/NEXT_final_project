@@ -44,10 +44,20 @@
     <li class="nav-item">           
       <%= link_to "Client Login", "/sign_in", method: :get, :class => "nav-link"%> 
     </li>
+
     <% else %>
 
     <li class="nav-item">           
-      <%= link_to "", "/sign_out", method: :delete, :class => "nav-link fa fa-sign-out"%>      
+      <%= link_to "Dashboard", "/users/dashboard", method: :get, :class => "nav-link"%> 
+    </li>
+
+    <li class="nav-item">           
+      <%= link_to "Employee Profiles", "/employee_profiles", method: :get, :class => "nav-link"%> 
+    </li>
+
+    <li class="nav-item">           
+      <%= link_to "Sign Out", "/sign_out", method: :delete, :class => "nav-link"%>      
+      <!--  fa fa-sign-out -->
     </li>
     <% end %>
 
