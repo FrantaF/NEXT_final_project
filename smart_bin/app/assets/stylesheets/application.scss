@@ -18,7 +18,11 @@
  @import "bootstrap";
  @import "font-awesome";
 
- .homepage-pic{
+html, body {
+  height: 100%
+}
+
+.homepage-pic{
    width: 300px;
 }
 .homepage-card{
@@ -32,3 +36,4 @@
 .card-text{
    text-align: center;
 }
+

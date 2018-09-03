@@ -4,7 +4,7 @@ class User < ApplicationRecord
   has_many :user_dustbin_assignments
   has_many :dustbins, through: :user_dustbin_assignments
 
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable,
          :recoverable, :rememberable, :validatable
 
   enum role: ["admin", "company", "user"]
