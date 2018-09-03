@@ -1,0 +1,2 @@
+class Group_dustbin_relations < ApplicationRecord
+end
