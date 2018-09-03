@@ -1,12 +1,6 @@
 class CreateDustbins < ActiveRecord::Migration[5.2]
   def change
 
-    create_table :group_dustbin_relations do |t|
-      t.references :group, index: true
-      t.references :dustbin, index: true
-      t.timestamps
-    end
-
     create_table :states do |t|
       t.string :name
       t.timestamps
@@ -21,11 +15,14 @@ class CreateDustbins < ActiveRecord::Migration[5.2]
     create_table :areas do |t|
       t.string :name
       t.references :city, index: true
+      t.references :state, index: true
       t.timestamps
     end
 
-    create_table :binlevels do |t|
+    create_table :fill_levels do |t|
       t.integer :level
+      t.string :percentage
+      t.string :description
       t.timestamps
     end
 
@@ -35,7 +32,8 @@ class CreateDustbins < ActiveRecord::Migration[5.2]
       t.string :address, null: false, default: ""
       t.decimal :longitude
       t.decimal :latitude
-      t.references :binlevel, index: true
+      t.references :fill_level, index: true
+      t.datetime :last_collected
       t.references :area, index: true
       t.references :city, index: true
       t.references :state, index: true

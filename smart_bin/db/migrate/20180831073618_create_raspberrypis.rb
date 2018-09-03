@@ -6,6 +6,8 @@ class CreateRaspberrypis < ActiveRecord::Migration[5.2]
       t.string :ip_address
       t.string :mac_address
       t.bigint :memory_size
+      t.decimal :longitude
+      t.decimal :latitude
       t.string :spec1
       t.string :spec2
       t.string :spec3
