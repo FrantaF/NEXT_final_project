@@ -1,0 +1,2 @@
+class FillLevel < ApplicationRecord
+end
