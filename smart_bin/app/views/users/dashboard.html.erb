@@ -65,12 +65,13 @@
 
     <!-- For MapBox -->
     Map Starts
-    <div id='map' class='contain' style="border:1px solid black; width:100%; height:400px">Map</div>
+    <div id='map' class='contain' style="border:1px solid black; width:100%; height:500px">Map</div>
     Map Ends
     <script>
       console.log("Script Starts");
-      var depo = [101.623, 3.134];
-      var warehouseLocation = [101.628, 3.137];
+      var defaultCenter = [101.624, 3.134];
+      var depo = [101.619, 3.134];
+      var firstStop = [101.630, 3.134];
       var lastQueryTime = 0;
       var lastAtRestaurant = 0;
       var keepTrack = [];
@@ -87,12 +88,12 @@
       var map = new mapboxgl.Map({
         container: 'map', // container id
         style: 'mapbox://styles/mapbox/light-v9', // stylesheet location
-        center: depo, // starting position
+        center: defaultCenter, // starting position
         zoom: 15.5 // starting zoom
       });
 
-      // For warehouse
-      var warehouse = turf.featureCollection([turf.point(warehouseLocation)]);
+      // For firstStop
+      var firstStop = turf.featureCollection([turf.point(firstStop)]);
 
       // Create an empty GeoJSON feature collection for drop-off locations
       var dropoffs = turf.featureCollection([]);
@@ -112,10 +113,10 @@
 
       // Create a circle layer
         map.addLayer({
-          id: 'warehouse',
+          id: 'firstStop',
           type: 'circle',
           source: {
-            data: warehouse,
+            data: firstStop,
             type: 'geojson'
           },
           paint: {
@@ -128,14 +129,14 @@
 
         // Create a symbol layer on top of circle layer
         map.addLayer({
-          id: 'warehouse-symbol',
+          id: 'firstStop-symbol',
           type: 'symbol',
           source: {
-            data: warehouse,
+            data: firstStop,
             type: 'geojson'
           },
           layout: {
-            'icon-image': 'grocery-15',
+            'icon-image': 'laundry-15',
             'icon-size': 1
           },
           paint: {
@@ -285,9 +286,9 @@
             if (needToPickUp) {
               var restaurantIndex = coordinates.length;
               // Add the restaurant as a coordinate
-              coordinates.push(warehouseLocation);
+              coordinates.push(firstStop);
               // push the restaurant itself into the array
-              keepTrack.push(pointHopper.warehouse);
+              keepTrack.push(pointHopper.firstStop);
             }
 
             restJobs.forEach(function(d, i) {
