@@ -1,3 +1,7 @@
+<!-- For MapBox GL JS -->
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.css' rel='stylesheet' />
+
+
 
 <!-- Page Content -->
 <div class="container">
@@ -14,6 +18,19 @@
     <!-- /.row -->
 
     <h1>DRAFT - THIS IS WHERE MAPS LOCATION AND ROUTING WILL BE!</h1>
+
+    <!-- For MapBox GL JS -->
+            This is where the map should start
+    <div id='map' style='width: 400px; height: 300px;'></div>
+            This is where the map should end
+        <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoiZXpsYW5tb2hzZW4iLCJhIjoiY2psbjQzYTYyMWY5aTNqbGQyNmp6aXp2ZyJ9.SxnU74puEKAXw_GlSXL4vQ';
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v9'
+        });
+        </script>
+
 
     <!-- Content Row -->
     <div class="row">
@@ -74,3 +91,6 @@
 </div>
 </div>
 <!-- /.container -->
+
+<!-- For MapBox GL JS -->
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.js'></script>
