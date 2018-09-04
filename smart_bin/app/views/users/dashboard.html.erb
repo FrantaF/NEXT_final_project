@@ -209,14 +209,29 @@
           }
         }, 'waterway-label');
 
-        // Listen for a click on the map
-        map.on('click', function(e) {
-          // When the map is clicked, add a new drop-off point
-          // and update the `dropoffs-symbol` layer
-          newDropoff(map.unproject(e.point));
-          updateDropoffs(dropoffs);
-        });
+        // Listen for a click on the map. From original example. Not needed.
+        // map.on('click', function(e) {
+        //   // When the map is clicked, add a new drop-off point
+        //   // and update the `dropoffs-symbol` layer
+        //   console.log(e)
+        //   console.log(e.point)
+        //   console.log(map.unproject(e.point))
+        //   newDropoff(map.unproject(e.point));
+        //   updateDropoffs(dropoffs);
+        // });
 
+        // On load, show location of dustbins and project route immediately.
+        var lon = [101.621,101.622,101.623,101.624];
+        var lat = [3.131,3.132, 3.133, 3.134];
+        // var lonlat = [{lng: 103.62381933476945, lat: 3.134848409356721}, {lng: 103.1, lat: 3.1}]
+
+        // i  = 4
+
+        for (x = 0; x < 4; x++){
+
+          newDropoff({lng: lon[x], lat: lat[x]});
+          updateDropoffs(dropoffs);
+        }
     });
 
         function newDropoff(coords) {
