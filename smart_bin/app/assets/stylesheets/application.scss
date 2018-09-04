@@ -13,6 +13,7 @@
  *= require_tree .
  *= require_self
  *= require font-awesome
+ *= require bootstrap-table
  */
 
  @import "bootstrap";
@@ -37,3 +38,6 @@ html, body {
    text-align: center;
 }
 
+table#table {
+  font-size: 10px;
+}

@@ -1,4 +1,3 @@
-
 class UsersController < ApplicationController
    # before_action :authenticate_user!
 
@@ -8,14 +7,23 @@ class UsersController < ApplicationController
 
    
    def create
+   end 
 
-   end  
-
-   def dashboard
-      
+   def index
+    if current_user.admin?
+        @dustbins = Dustbin.all
+    elsif current_user.user?
+        @dustbins = current_user.dustbins.order("fill_level_id DESC")
+    end
    end
 
-   def contact
+   def dashboard
+   end
+
+   def analyic
+   end
+
+   def profile
    end
 
    def employe_profiles
