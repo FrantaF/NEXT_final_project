@@ -70,7 +70,7 @@
     <script>
       console.log("Script Starts");
       var truckLocation = [101.630, 3.135];
-      var warehouseLocation = [-83.083, 42.363];
+      var warehouseLocation = [101.628, 3.137];
       var lastQueryTime = 0;
       var lastAtRestaurant = 0;
       var keepTrack = [];
@@ -91,15 +91,97 @@
         zoom: 12 // starting zoom
       });
 
-          map.on('load', function() {
-        var marker = document.createElement('div');
-        marker.classList = 'truck';
+      // For warehouse
+      var warehouse = turf.featureCollection([turf.point(warehouseLocation)]);
 
-        // Create a new marker
-        truckMarker = new mapboxgl.Marker(marker)
-        .setLngLat(truckLocation)
-        .addTo(map);
+      // Create an empty GeoJSON feature collection for drop-off locations
+      var dropoffs = turf.featureCollection([]);
+
+      // For the truck marker
+      map.on('load', function() {
+      var marker = document.createElement('div');
+      marker.classList = 'truck';
+
+      // Create a new marker
+      truckMarker = new mapboxgl.Marker(marker)
+      .setLngLat(truckLocation)
+      .addTo(map);
+
+      // Create a circle layer
+        map.addLayer({
+          id: 'warehouse',
+          type: 'circle',
+          source: {
+            data: warehouse,
+            type: 'geojson'
+          },
+          paint: {
+            'circle-radius': 20,
+            'circle-color': 'white',
+            'circle-stroke-color': '#3887be',
+            'circle-stroke-width': 3
+          }
         });
+
+        // Create a symbol layer on top of circle layer
+        map.addLayer({
+          id: 'warehouse-symbol',
+          type: 'symbol',
+          source: {
+            data: warehouse,
+            type: 'geojson'
+          },
+          layout: {
+            'icon-image': 'grocery-15',
+            'icon-size': 1
+          },
+          paint: {
+            'text-color': '#3887be'
+          }
+        });
+
+        // For Extra on-click pick up locations
+        map.addLayer({
+          id: 'dropoffs-symbol',
+          type: 'symbol',
+          source: {
+            data: dropoffs,
+            type: 'geojson'
+          },
+          layout: {
+            'icon-allow-overlap': true,
+            'icon-ignore-placement': true,
+            'icon-image': 'marker-15',
+          }
+        });
+
+        // Listen for a click on the map
+        map.on('click', function(e) {
+          // When the map is clicked, add a new drop-off point
+          // and update the `dropoffs-symbol` layer
+          newDropoff(map.unproject(e.point));
+          updateDropoffs(dropoffs);
+        });
+
+    });
+
+        function newDropoff(coords) {
+          // Store the clicked point as a new GeoJSON feature with
+          // two properties: `orderTime` and `key`
+          var pt = turf.point(
+            [coords.lng, coords.lat],
+            {
+              orderTime: Date.now(),
+              key: Math.random()
+            }
+          );
+          dropoffs.features.push(pt);
+        }
+
+        function updateDropoffs(geojson) {
+          map.getSource('dropoffs-symbol')
+            .setData(geojson);
+        }
     </script>
 
 
