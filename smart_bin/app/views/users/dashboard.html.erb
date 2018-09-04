@@ -69,7 +69,7 @@
     Map Ends
     <script>
       console.log("Script Starts");
-      var truckLocation = [101.630, 3.135];
+      var depo = [101.623, 3.134];
       var warehouseLocation = [101.628, 3.137];
       var lastQueryTime = 0;
       var lastAtRestaurant = 0;
@@ -87,8 +87,8 @@
       var map = new mapboxgl.Map({
         container: 'map', // container id
         style: 'mapbox://styles/mapbox/light-v9', // stylesheet location
-        center: truckLocation, // starting position
-        zoom: 18 // starting zoom
+        center: depo, // starting position
+        zoom: 15.5 // starting zoom
       });
 
       // For warehouse
@@ -107,7 +107,7 @@
 
       // Create a new marker
       truckMarker = new mapboxgl.Marker(marker)
-      .setLngLat(truckLocation)
+      .setLngLat(depo)
       .addTo(map);
 
       // Create a circle layer
@@ -265,9 +265,9 @@
         function assembleQueryURL() {
 
           // Store the location of the truck in a variable called coordinates
-          var coordinates = [truckLocation];
+          var coordinates = [depo];
           var distributions = [];
-          keepTrack = [truckLocation];
+          keepTrack = [depo];
 
           // Create an array of GeoJSON feature collections for each point
           var restJobs = objectToArray(pointHopper);
