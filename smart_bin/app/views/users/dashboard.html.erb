@@ -69,9 +69,9 @@
     Map Ends
     <script>
       console.log("Script Starts");
-      var defaultCenter = [101.624, 3.134];
-      var depo = [101.619, 3.134];
-      var firstStop = [101.630, 3.134];
+      var defaultCenter = [101.623, 3.134];
+      var truckLocation = [101.619, 3.134];
+      var nextAcademyLocation = [101.630, 3.134];
       var lastQueryTime = 0;
       var lastAtRestaurant = 0;
       var keepTrack = [];
@@ -92,8 +92,8 @@
         zoom: 15.5 // starting zoom
       });
 
-      // For firstStop
-      var firstStop = turf.featureCollection([turf.point(firstStop)]);
+      // For warehouse
+      var nextAcademy = turf.featureCollection([turf.point(nextAcademyLocation)]);
 
       // Create an empty GeoJSON feature collection for drop-off locations
       var dropoffs = turf.featureCollection([]);
@@ -108,15 +108,15 @@
 
       // Create a new marker
       truckMarker = new mapboxgl.Marker(marker)
-      .setLngLat(depo)
+      .setLngLat(truckLocation)
       .addTo(map);
 
       // Create a circle layer
         map.addLayer({
-          id: 'firstStop',
+          id: 'nextAcademy',
           type: 'circle',
           source: {
-            data: firstStop,
+            data: nextAcademy,
             type: 'geojson'
           },
           paint: {
@@ -129,10 +129,10 @@
 
         // Create a symbol layer on top of circle layer
         map.addLayer({
-          id: 'firstStop-symbol',
+          id: 'nextAcademy-symbol',
           type: 'symbol',
           source: {
-            data: firstStop,
+            data: nextAcademy,
             type: 'geojson'
           },
           layout: {
@@ -266,9 +266,9 @@
         function assembleQueryURL() {
 
           // Store the location of the truck in a variable called coordinates
-          var coordinates = [depo];
+          var coordinates = [truckLocation];
           var distributions = [];
-          keepTrack = [depo];
+          keepTrack = [truckLocation];
 
           // Create an array of GeoJSON feature collections for each point
           var restJobs = objectToArray(pointHopper);
@@ -286,9 +286,9 @@
             if (needToPickUp) {
               var restaurantIndex = coordinates.length;
               // Add the restaurant as a coordinate
-              coordinates.push(firstStop);
+              coordinates.push(nextAcademyLocation);
               // push the restaurant itself into the array
-              keepTrack.push(pointHopper.firstStop);
+              keepTrack.push(pointHopper.nextAcademy);
             }
 
             restJobs.forEach(function(d, i) {
