@@ -90,6 +90,16 @@
         center: truckLocation, // starting position
         zoom: 12 // starting zoom
       });
+
+          map.on('load', function() {
+        var marker = document.createElement('div');
+        marker.classList = 'truck';
+
+        // Create a new marker
+        truckMarker = new mapboxgl.Marker(marker)
+        .setLngLat(truckLocation)
+        .addTo(map);
+        });
     </script>
 
 
