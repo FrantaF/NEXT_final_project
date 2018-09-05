@@ -15,10 +15,13 @@ Rails.application.routes.draw do
   get "/employee_profiles" => "users#employee_profiles"
 
   get "/solutions", to: "static#solutions" 
+  post "/solutions", to: "static#solutions" 
 
   get "/contact", to: "static#contact"
+  post "/contact", to: "static#contact"
 
   get "/subscriptions/pricing_tables", to: "subscriptions#pricing_tables"
+  post "/subscriptions/pricing_tables", to: "subscriptions#pricing_tables"
 
   get "/users", to: "users#index"
   get "/users/dashboard", to: "users#dashboard"

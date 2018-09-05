@@ -43,13 +43,13 @@
 
         <script>
             var $table = $('#table');
-                $(function () {
-                    $('#toolbar').find('select').change(function () {
-                        $table.bootstrapTable('refreshOptions', {
-                            xportDataType: $(this).val()
-                        });
+            $(function () {
+                $('#toolbar').find('select').change(function () {
+                    $table.bootstrapTable('refreshOptions', {
+                        xportDataType: $(this).val()
                     });
-                })
+                });
+            })
         </script>
 
     </div>

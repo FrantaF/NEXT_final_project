@@ -9,20 +9,16 @@
   <title>My Chart.js Chart</title>
 </head>
 <body>
-  <div class="container">
-    <% @dustbin_stat = DustbinStat.where("dustbin_id = '1'") %>   
-    <% @fill_level_percentage = [] %>
-    <% byebug %>
-    <% @dustbin_stat.each do |record| %>
-    <% fill_level_id = record.fill_level_id %>
-
-    <% @fill_level_percentage.push(FillLevel.find(fill_level_id).percentage) %>
-    <% end %>
-
-    <% @fill_level_percentage.each do |percentage| %>
-    <%= percentage %>
-    <% end %>
+  <div class="container">        
     <canvas id="myChart"></canvas>
+  </div>
+
+  <div class="container">        
+    <canvas id="myChart2"></canvas>
+  </div>
+
+  <div class="container">        
+    <canvas id="myChart3"></canvas>
   </div>
 
   <script>
@@ -33,32 +29,27 @@
     Chart.defaults.global.defaultFontSize = 18;
     Chart.defaults.global.defaultFontColor = '#777';
 
+    // Fill Level over time for a single bin 
+
     let massPopChart = new Chart(myChart, {
       type:'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
       data:{
-        //these labels will be a time line 
-        labels:['Boston', 'Worcester', 'Springfield', 'Lowell', 'Cambridge', 'New Bedford'],
+        //these labels will be a time line         
+        labels: <%= @hourly_timeline %>,
+        // ['Boston', 'Worcester', 'Springfield', 'Lowell', 'Cambridge', 'New Bedford'] ,
         datasets:[{
-          label:'Population',
-          //this will be the fill_level % for a particular bin
-          data: <%#= @dustbin_stat %>
-          [ 
-            617594,
-            181045,
-            153060,
-            106519,
-            105162,
-            95072
-          ],
+          label:'Fill Level',          
+          data: <%= @fill_level_percentage %>,
+          
           //backgroundColor:'green',
           backgroundColor:[
-            'rgba(255, 99, 132, 0.6)',
-            'rgba(54, 162, 235, 0.6)',
-            'rgba(255, 206, 86, 0.6)',
-            'rgba(75, 192, 192, 0.6)',
-            'rgba(153, 102, 255, 0.6)',
-            'rgba(255, 159, 64, 0.6)',
-            'rgba(255, 99, 132, 0.6)'
+          'rgba(255, 99, 132, 0.6)',
+          'rgba(54, 162, 235, 0.6)',
+          'rgba(255, 206, 86, 0.6)',
+          'rgba(75, 192, 192, 0.6)',
+          'rgba(153, 102, 255, 0.6)',
+          'rgba(255, 159, 64, 0.6)',
+          'rgba(255, 99, 132, 0.6)'
           ],
           borderWidth:1,
           borderColor:'#777',
@@ -69,7 +60,7 @@
       options:{
         title:{
           display:true,
-          text:'Largest Cities In Massachusetts',
+          text:'Fill Level - Bin 1',
           fontSize:25
         },
         legend:{
@@ -92,6 +83,116 @@
         }
       }
     });
+
+    // How  long does it take for a bin to fill up
+    let myChart2 = document.getElementById('myChart2').getContext('2d');
+    let massPopChart2 = new Chart(myChart2, {
+      type:'line', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+      data:{
+        //these labels will be a time line         
+        labels: <%= @record_num %>,        
+        datasets:[{
+          label:'Time it takes to fill up',          
+          data: <%= @filled_up_time %>,
+          
+          //backgroundColor:'green',
+          backgroundColor:[
+          'rgba(255, 99, 132, 0.6)',
+          'rgba(54, 162, 235, 0.6)',
+          'rgba(255, 206, 86, 0.6)',
+          'rgba(75, 192, 192, 0.6)',
+          'rgba(153, 102, 255, 0.6)',
+          'rgba(255, 159, 64, 0.6)',
+          'rgba(255, 99, 132, 0.6)'
+          ],
+          borderWidth:1,
+          borderColor:'#777',
+          hoverBorderWidth:3,
+          hoverBorderColor:'#000'
+        }]
+      },
+      options:{
+        title:{
+          display:true,
+          text:'Time (in hours) it takes to fill up a bin',
+          fontSize:25
+        },
+        legend:{
+          display:true,
+          position:'right',
+          labels:{
+            fontColor:'#000'
+          }
+        },
+        layout:{
+          padding:{
+            left:50,
+            right:0,
+            bottom:0,
+            top:0
+          }
+        },
+        tooltips:{
+          enabled:true
+        }
+      }
+    });
+
+    // Fill up hourly rate
+    let myChart3 = document.getElementById('myChart3').getContext('2d');
+    let massPopChart3 = new Chart(myChart3, {
+      type:'horizontalBar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+      data:{
+        //these labels will be a time line         
+        labels: <%= @hourly_timeline %>,        
+        datasets:[{
+          label:'How quickly the bin fills up each hour',          
+          data: <%= @fill_up_rate %>,
+          
+          //backgroundColor:'green',
+          backgroundColor:[
+          'rgba(255, 99, 132, 0.6)',
+          'rgba(54, 162, 235, 0.6)',
+          'rgba(255, 206, 86, 0.6)',
+          'rgba(75, 192, 192, 0.6)',
+          'rgba(153, 102, 255, 0.6)',
+          'rgba(255, 159, 64, 0.6)',
+          'rgba(255, 99, 132, 0.6)'
+          ],
+          borderWidth:1,
+          borderColor:'#777',
+          hoverBorderWidth:3,
+          hoverBorderColor:'#000'
+        }]
+      },
+      options:{
+        title:{
+          display:true,
+          text:'Fill up hourly rate',
+          fontSize:25
+        },
+        legend:{
+          display:true,
+          position:'right',
+          labels:{
+            fontColor:'#000'
+          }
+        },
+        layout:{
+          padding:{
+            left:50,
+            right:0,
+            bottom:0,
+            top:0
+          }
+        },
+        tooltips:{
+          enabled:true
+        }
+      }
+    });
+
+
   </script>
 </body>
 </html>
