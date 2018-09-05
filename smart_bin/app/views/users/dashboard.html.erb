@@ -1,11 +1,12 @@
 <!-- For MapBox GL JS -->
 <!-- <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.css' rel='stylesheet' />
  -->
-<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.css' rel='stylesheet' />
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.css' rel='stylesheet' />
 <!-- <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.js'></script> -->
 <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
 <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
-<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.js'></script>
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.js'></script>
+<!-- <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/turf/v2.0.0/turf.min.js' charset='utf-8'></script> -->
 
 <style>
   
@@ -151,6 +152,11 @@
           data: nothing
         });
 
+        map.addSource('animateRoute', {
+          type: 'geojson',
+          data: nothing
+        });
+
         map.addLayer({
           id: 'routeline-active',
           type: 'line',
@@ -231,7 +237,21 @@
 
           newDropoff({lng: lon[x], lat: lat[x]});
           updateDropoffs(dropoffs);
-        }
+                  }
+
+        map.addLayer({
+            "id": "point",
+            "source": "animateRoute",
+            "type": "symbol",
+            "layout": {
+                "icon-image": "airport-15",
+                'icon-size': 3,
+                "icon-rotate": ["get", "bearing"],
+                "icon-rotation-alignment": "map",
+                "icon-allow-overlap": true,
+                "icon-ignore-placement": true
+            }
+        });
     });
 
         function newDropoff(coords) {
@@ -263,6 +283,35 @@
               // and setting the data equal to routeGeoJSON
               map.getSource('route')
                 .setData(routeGeoJSON);
+
+
+                // Calculate the distance in kilometers between route start/end point.
+                var lineDistance = turf.length(routeGeoJSON.features[0],{units: 'miles'});
+                console.log('lineDistance')
+                console.log(lineDistance)
+
+                var arc = [];
+
+                // Number of steps to use in the arc and animation, more steps means
+                // a smoother arc and animation, but too many steps will result in a
+                // low frame rate
+                var steps = 500;
+
+                // Draw an arc between the `origin` & `destination` of the two points
+                for (var i = 0; i < lineDistance; i += lineDistance / steps) {
+                    var segment = turf.along(routeGeoJSON.features[0], i, {units: 'miles'});
+                    arc.push(segment.geometry.coordinates);
+                }
+
+                // Update the route with calculated arc coordinates
+                routeGeoJSON.features[0].geometry.coordinates = arc;
+                var animateRouteGeoJSON = routeGeoJSON;
+
+                console.log("animateRouteGeoJSON"); 
+                console.log(animateRouteGeoJSON); 
+
+              map.getSource('animateRoute')
+                .setData(animateRouteGeoJSON);
             }
 
             if (data.waypoints.length === 12) {
@@ -329,6 +378,36 @@
           });
           return routeGeoJSON;
         }
+
+        var counter = 0;
+
+
+    //     function animate() {
+    //     // Update point geometry to a new position based on counter denoting
+    //     // the index to access the arc.
+    //     point.features[0].geometry.coordinates = route.features[0].geometry.coordinates[counter];
+
+    //     // Calculate the bearing to ensure the icon is rotated to match the route arc
+    //     // The bearing is calculate between the current point and the next point, except
+    //     // at the end of the arc use the previous point and the current point
+    //     point.features[0].properties.bearing = turf.bearing(
+    //         turf.point(route.features[0].geometry.coordinates[counter >= steps ? counter - 1 : counter]),
+    //         turf.point(route.features[0].geometry.coordinates[counter >= steps ? counter : counter + 1])
+    //     );
+
+    //     // Update the source with this new data.
+    //     map.getSource('point').setData(point);
+
+    //     // Request the next frame of animation so long the end has not been reached.
+    //     if (counter < steps) {
+    //         requestAnimationFrame(animate);
+    //     }
+
+    //     counter = counter + 1;
+    // }
+
+    // // Start the animation.
+    // animate(counter);
     </script>
 
 
