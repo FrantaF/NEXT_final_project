@@ -1,6 +1,14 @@
 class UsersController < ApplicationController
    # before_action :authenticate_user!
 
+   def testing_chart
+    # calculate bin stats here
+    #assuming bin_id = 1 
+    #FillLevel.where("dustbin_id LIKE ?", "%#{params[:user][:location]}%")
+    
+   end
+
+
    def home
 
    end

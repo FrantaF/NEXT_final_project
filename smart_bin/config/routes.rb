@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get "/testing_chart" => "users#testing_chart"
+  post "/testing_chart" => "users#testing_chart"
+
+
   root 'static#home'
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
