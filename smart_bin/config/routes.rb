@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  root 'static#home'
+
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   get 'braintree/payment' => "braintree#payment"
   get 'braintree/checkout' => "braintree#checkout"
@@ -8,22 +10,16 @@ Rails.application.routes.draw do
   post "/employee_profiles" => "users#employee_profiles"
   get "/employee_profiles" => "users#employee_profiles"
 
+  get "/solutions", to: "static#solutions" 
 
-  root 'users#home'
-  post "/" => "users#home"
-  get "/" => "users#home" 
+  get "/contact", to: "static#contact"
 
-  post "/solutions" => "users#solutions"
-  get "/solutions" => "users#solutions" 
+  get "/subscriptions/pricing_tables", to: "subscriptions#pricing_tables"
 
-  post "/contact" => "users#contact"
-  get "/contact" => "users#contact"
-
-  post "/subscriptions/pricing_tables" => "subscriptions#pricing_tables"
-  get "/subscriptions/pricing_tables" => "subscriptions#pricing_tables"
-
-  post "/users/dashboard" => "users#dashboard"
-  get "/users/dashboard" => "users#dashboard"
+  get "/users", to: "users#index"
+  get "/users/dashboard", to: "users#dashboard"
+  get "/users/analytic", to: "users#analytic"
+  get "/users/profile", to: "users#profile"
 
    #overriding devise      
    devise_scope :user do

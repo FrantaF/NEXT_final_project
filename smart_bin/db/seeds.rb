@@ -83,12 +83,13 @@ Raspberrypi.create!([
 ])
 
 Dustbin.create!([
-    {name: "TTDI Waste Center 1", code: "TTDI0001", address: "Jalan 1/2, Taman Tun Dr. Ismail", longitude: 3.133712, latitude: 101.629692, fill_level_id: 6, state_id: 2, city_id: 7, area_id: 1, raspberrypi_id: 1},
-    {name: "TTDI Waste Center 2", code: "TTDI0002", address: "Jalan 1/3, Taman Tun Dr. Ismail", longitude: 3.133309, latitude: 101.626877, fill_level_id: 4, state_id: 2, city_id: 7, area_id: 1, raspberrypi_id: 2},
-    {name: "TTDI Waste Center 3", code: "TTDI0003", address: "Jalan 1/4, Taman Tun Dr. Ismail", longitude: 3.135937, latitude: 101.624967, fill_level_id: 3, state_id: 2, city_id: 7, area_id: 1, raspberrypi_id: 3},
-    {name: "PJ Waste Center 1", code: "PJ0001", address: "Jalan 1/2, Petaling Jaya", longitude: 3.124703, latitude: 101.610388, fill_level_id: 2, state_id: 1, city_id: 1, area_id: 1, raspberrypi_id: 4},
-    {name: "PJ Waste Center 2", code: "PJ0002", address: "Jalan 1/3, Petaling Jaya", longitude: 3.117143, latitude: 101.612760, fill_level_id: 5, state_id: 1, city_id: 1, area_id: 1, raspberrypi_id: 5},
-    {name: "PJ Waste Center 3", code: "PJ0003", address: "Jalan 1/4, Petaling Jaya", longitude: 3.115297, latitude: 101.606691, fill_level_id: 10, state_id: 1, city_id: 1, area_id: 1, raspberrypi_id: 6}
+    {name: "TTDI Waste Center 1", code: "TTDI0001", address: "Jalan 1/2, Taman Tun Dr. Ismail", last_collectd: 2018-09-01 15:00:00, longitude: 3.133712, latitude: 101.629692, fill_level_id: 6, state_id: 2, city_id: 7, area_id: 1, raspberrypi_id: 1},
+    {name: "TTDI Waste Center 1", code: "TTDI0001", address: "Jalan 1/2, Taman Tun Dr. Ismail", last_collectd: 2018-09-01 15:00:00, longitude: 3.133712, latitude: 101.629692, fill_level_id: 6, state_id: 2, city_id: 7, area_id: 1, raspberrypi_id: 1},
+    {name: "TTDI Waste Center 2", code: "TTDI0002", address: "Jalan 1/3, Taman Tun Dr. Ismail", last_collectd: 2018-09-01 15:00:00, longitude: 3.133309, latitude: 101.626877, fill_level_id: 4, state_id: 2, city_id: 7, area_id: 1, raspberrypi_id: 2},
+    {name: "TTDI Waste Center 3", code: "TTDI0003", address: "Jalan 1/4, Taman Tun Dr. Ismail", last_collectd: 2018-09-01 15:00:00, longitude: 3.135937, latitude: 101.624967, fill_level_id: 3, state_id: 2, city_id: 7, area_id: 1, raspberrypi_id: 3},
+    {name: "PJ Waste Center 1", code: "PJ0001", address: "Jalan 1/2, Petaling Jaya", last_collectd: 2018-09-01 15:00:00, longitude: 3.124703, latitude: 101.610388, fill_level_id: 2, state_id: 1, city_id: 1, area_id: 1, raspberrypi_id: 4},
+    {name: "PJ Waste Center 2", code: "PJ0002", address: "Jalan 1/3, Petaling Jaya", last_collectd: 2018-09-01 15:00:00, longitude: 3.117143, latitude: 101.612760, fill_level_id: 5, state_id: 1, city_id: 1, area_id: 1, raspberrypi_id: 5},
+    {name: "PJ Waste Center 3", code: "PJ0003", address: "Jalan 1/4, Petaling Jaya", last_collectd: 2018-09-01 15:00:00, longitude: 3.115297, latitude: 101.606691, fill_level_id: 10, state_id: 1, city_id: 1, area_id: 1, raspberrypi_id: 6}
   ])
 
   UserDustbinAssignment.create!([
