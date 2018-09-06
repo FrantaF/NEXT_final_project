@@ -14,8 +14,8 @@
 
   .truck {
     margin: -10px -10px;
-    width: 20px;
-    height: 20px;
+    width: 2px;
+    height: 2px;
     border: 2px solid #fff;
     border-radius: 50%;
     background: #3887be;
@@ -72,10 +72,12 @@ button#simulate{
 
 
     <script>
+
+    function load_js(){  
       console.log("Script Starts");
       var defaultCenter = [101.623, 3.134];
-      var truckLocation = [101.630, 3.134];
-      var nextAcademyLocation = [101.630, 3.134];
+      var truckLocation = [101.625871, 3.138663]; //starting point
+      var depoLocation = [101.625871, 3.138663]; //starting point (purposely doubled)
       // var lastQueryTime = 0;
       var lastAtRestaurant = 0;
       var keepTrack = [];
@@ -99,7 +101,7 @@ button#simulate{
 
 
       // For warehouse
-      var nextAcademy = turf.featureCollection([turf.point(nextAcademyLocation)]);
+      var depo = turf.featureCollection([turf.point(depoLocation)]);
 
       // Create an empty GeoJSON feature collection for drop-off locations
       var pickups = turf.featureCollection([]);
@@ -115,7 +117,7 @@ button#simulate{
               "properties": {},
               "geometry": {
                   "type": "Point",
-                  "coordinates": defaultCenter
+                  "coordinates": truckLocation
               }
           }]
       };
@@ -134,10 +136,10 @@ button#simulate{
 
         // Create a circle layer for next academy
         map.addLayer({
-          id: 'nextAcademy',
+          id: 'depo',
           type: 'circle',
           source: {
-            data: nextAcademy,
+            data: depo,
             type: 'geojson'
           },
           paint: {
@@ -150,14 +152,14 @@ button#simulate{
 
         // Create a symbol layer on top of circle layer for next academy
         map.addLayer({
-          id: 'nextAcademy-symbol',
+          id: 'depo-symbol',
           type: 'symbol',
           source: {
-            data: nextAcademy,
+            data: depo,
             type: 'geojson'
           },
           layout: {
-            'icon-image': 'laundry-15',
+            'icon-image': 'mountain-15',
             'icon-size': 1
           },
           paint: {
@@ -251,79 +253,112 @@ button#simulate{
         });
 
         // On load, show location of dustbins and project route immediately.
-        var lon = [101.626,101.622, 101.623, 101.630, 101.629, 101.624967];
-        var lat = [3.131,3.132, 3.133, 3.134, 3.133, 3.135937];
+        // Will receive input from backend on which bins.
+        var activebins = [
+        // {lng: 101.620, lat: 3.131},
+        {lng: 101.622, lat: 3.135},
+        {lng: 101.622, lat: 3.132},
+        {lng: 101.622, lat: 3.134},
+        {lng: 101.624967, lat: 3.135937}, 
+        {lng: 101.6245, lat: 3.131},
+        // {lng: 101.62994, lat: 3.1349}, //Next Academy
+        {lng: 101.615, lat: 3.133},
+        {lng: 101.620, lat: 3.133},
+        ]
 
-        i  = lon.length;
+        i  = activebins.length;
 
         for (x = 0; x < (i); x++){
-          newDropoff({lng: lon[x], lat: lat[x]});
+          newDropoff(activebins[x]);
         }
 
         updatepickups(pickups);
 
-        // Make a request to the Optimization API
-        $.ajax({
-          method: 'GET',
-          url: assembleQueryURL(),
-        }).done(function(data) {
-
-          console.log(data);
-          // Create a GeoJSON feature collection
-          var routeGeoJSON = turf.featureCollection([turf.feature(data.trips[0].geometry)]);
-
-          // If there is no route provided, reset
-          if (!data.trips[0]) {
-            routeGeoJSON = nothing;
-          } else {
-            // Update the `route` source by getting the route source
-            // and setting the data equal to routeGeoJSON
-            map.getSource('route')
-              .setData(routeGeoJSON);
-          }
-
-          // Animation function within Ajax
-          var counter = 0;
-          var steps = 10000;
-
-          function animate() {
-          // Update point geometry to a new position based on counter denoting
-          // the index to access the arc.
-          point.features[0].geometry.coordinates = routeGeoJSON.features[0].geometry.coordinates[counter];
-          // Calculate the bearing to ensure the icon is rotated to match the route arc
-          // The bearing is calculate between the current point and the next point, except
-          // at the end of the arc use the previous point and the current point
-          point.features[0].properties.bearing = turf.bearing(
-              turf.point(routeGeoJSON.features[0].geometry.coordinates[counter >= steps ? counter - 1 : counter]),
-              turf.point(routeGeoJSON.features[0].geometry.coordinates[counter >= steps ? counter : counter + 1])
-          );
-
-          // Update the source with this new data.
-          // map.getSource('point').setData(point);
-                      map.getSource('animateRoute')
-              .setData(point);
-
-          // Request the next frame of animation so long the end has not been reached.
-          if (counter < steps) {
-              requestAnimationFrame(animate);
-          }
-
-          counter = counter + 1;
-        }
-
-        document.getElementById('simulate').addEventListener('click', function() {
-
-          // Start the animation.
-          animate(counter);
-        })
-
-        // Passing data into summary to show the distance travelled and duration it will take.
-        // data.trips[0].distance is 10404.8
-        // data.trips[0].duration is 1777.4999999999998
-        document.getElementById('summary').innerHTML = "Your journey today will take " + ((data.trips[0].duration)/60).toFixed(0) + " minutes for " + ((data.trips[0].distance)/1000).toFixed(2) + " km!"
-
-        });
+        // Make a request to the Optimization API'
+        callAjax(activebins)
+        
     });
+
+        function callAjax(activebins) {
+          $.ajax({
+            method: 'GET',
+            url: assembleQueryURL(),
+          }).done(function(data) {
+
+            console.log(data);
+            // Create a GeoJSON feature collection
+            var routeGeoJSON = turf.featureCollection([turf.feature(data.trips[0].geometry)]);
+
+            // If there is no route provided, reset
+            if (!data.trips[0]) {
+              routeGeoJSON = nothing;
+            } else {
+              // Update the `route` source by getting the route source
+              // and setting the data equal to routeGeoJSON
+              map.getSource('route')
+                .setData(routeGeoJSON);
+            }
+
+            // Breaking routeGeoJSON into smaller frames
+            var counter = 0;
+            var steps = 3000;
+
+            var lineDistance = turf.lineDistance(routeGeoJSON.features[0], {units: 'kilometers'});
+
+            var road = []
+            
+            for (var i = 0; i < lineDistance; i += lineDistance / steps) {
+                var segment = turf.along(routeGeoJSON.features[0], i, {units: 'kilometers'});
+                road.push(segment.geometry.coordinates);
+            }
+
+            routeGeoJSON.features[0].geometry.coordinates = road
+
+
+            // Animation function within Ajax
+            function animate() {
+            // Update point geometry to a new position based on counter denoting
+            // the index to access the arc.
+            point.features[0].geometry.coordinates = routeGeoJSON.features[0].geometry.coordinates[counter];
+            // Calculate the bearing to ensure the icon is rotated to match the route arc
+            // The bearing is calculate between the current point and the next point, except
+            // at the end of the arc use the previous point and the current point
+            point.features[0].properties.bearing = turf.bearing(
+                turf.point(routeGeoJSON.features[0].geometry.coordinates[counter >= steps ? counter - 1 : counter]),
+                turf.point(routeGeoJSON.features[0].geometry.coordinates[counter >= steps ? counter : counter + 1])
+            );
+
+            // Update the source with this new data.
+            // map.getSource('point').setData(point);
+              map.getSource('animateRoute')
+                .setData(point);
+
+            // Request the next frame of animation so long the end has not been reached.
+            if (counter < steps) {
+              requestAnimationFrame(animate);
+            }
+
+            counter = counter + 1;
+          }
+
+          document.getElementById('simulate').addEventListener('click', function() {
+
+            // Start the animation.
+            animate(counter);
+            // function to delete map inner html and reload map
+            setInterval('timerrr();', 1000);
+            // console.log((((data.trips[0].distance)/1000).toFixed(2))*7250);
+            // setTimeout('load_js();', (((data.trips[0].distance)/1000).toFixed(2)) * 7250);
+            setTimeout('load_js();', 55000);
+          })
+
+          // Passing data into summary to show the distance travelled and duration it will take.
+          // data.trips[0].distance is 10404.8
+          // data.trips[0].duration is 1777.4999999999998
+          document.getElementById('summary').innerHTML = "Your journey today will take " + ((data.trips[0].duration)/60).toFixed(0) + " minutes for " + ((data.trips[0].distance)/1000).toFixed(2) + " km to collect " + activebins.length + " bins!"
+
+          });
+        }
 
         // Here you'll specify all the parameters necessary for requesting a response from the Optimization API
         function assembleQueryURL() {
@@ -348,9 +383,9 @@ button#simulate{
             if (needToPickUp) {
               var restaurantIndex = coordinates.length;
               // Add the restaurant as a coordinate
-              coordinates.push(nextAcademyLocation);
+              coordinates.push(depoLocation);
               // push the restaurant itself into the array
-              keepTrack.push(pointHopper.nextAcademy);
+              keepTrack.push(pointHopper.depo);
             }
 
             restJobs.forEach(function(d, i) {
@@ -367,6 +402,10 @@ button#simulate{
           // Coordinates will include the current location of the truck,
           return 'https://api.mapbox.com/optimized-trips/v1/mapbox/driving/' + coordinates.join(';') + '?distributions=' + distributions.join(';') + '&overview=full&steps=true&geometries=geojson&source=first&access_token=' + mapboxgl.accessToken;
         }
+
+          function timerrr(){
+            console.log('1000');
+          }
 
 
         // This functions 1)create an object with new coordinate, 2)push it to pickups array
@@ -398,7 +437,12 @@ button#simulate{
           return routeGeoJSON;
         }
 
-    console.log('script Ends')
+        console.log('script Ends')
+
+    }
+
+    load_js();
+
     </script>
 
 
