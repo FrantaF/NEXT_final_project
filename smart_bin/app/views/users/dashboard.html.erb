@@ -22,6 +22,28 @@
     pointer-events: none;
   }
 
+.map-button{
+  position: relative;
+  width:100%;
+  height:500px;
+}
+
+button#simulate{
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  z-index: 10;
+  font:600 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  background-color: #3386c0;
+  color: #fff;
+  display: inline-block;
+  margin: 0;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
 </style>
 
 
@@ -40,13 +62,14 @@
     </div>
     <!-- /.row -->
 
-    <h1>DRAFT - THIS IS WHERE MAPS LOCATION AND ROUTING WILL BE!</h1>
-
     <!-- For MapBox -->
     <h6 id="summary"></h6>
     Map Starts
-      <div id='map' class='contain' style="border:1px solid black; width:100%; height:500px">Map</div>
+    <div id='map' class='contain map-button' style="border:1px solid black;">
+      <button id='simulate'>Simulate Journey</button>
+    </div>
     Map Ends
+
 
     <script>
       console.log("Script Starts");
@@ -260,7 +283,6 @@
           }
 
           // Animation function within Ajax
-
           var counter = 0;
           var steps = 10000;
 
@@ -289,8 +311,11 @@
           counter = counter + 1;
         }
 
-        // Start the animation.
-        animate(counter);
+        document.getElementById('simulate').addEventListener('click', function() {
+
+          // Start the animation.
+          animate(counter);
+        })
 
         // Passing data into summary to show the distance travelled and duration it will take.
         // data.trips[0].distance is 10404.8
