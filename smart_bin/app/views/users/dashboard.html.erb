@@ -43,6 +43,7 @@
     <h1>DRAFT - THIS IS WHERE MAPS LOCATION AND ROUTING WILL BE!</h1>
 
     <!-- For MapBox -->
+    <h6 id="summary"></h6>
     Map Starts
       <div id='map' class='contain' style="border:1px solid black; width:100%; height:500px">Map</div>
     Map Ends
@@ -50,7 +51,7 @@
     <script>
       console.log("Script Starts");
       var defaultCenter = [101.623, 3.134];
-      var truckLocation = [101.619, 3.134];
+      var truckLocation = [101.630, 3.134];
       var nextAcademyLocation = [101.630, 3.134];
       // var lastQueryTime = 0;
       var lastAtRestaurant = 0;
@@ -217,8 +218,8 @@
             "source": "animateRoute",
             "type": "symbol",
             "layout": {
-                "icon-image": "airport-15",
-                'icon-size': 3,
+                "icon-image": "car-15",
+                'icon-size': 2,
                 "icon-rotate": ["get", "bearing"],
                 "icon-rotation-alignment": "map",
                 "icon-allow-overlap": true,
@@ -227,8 +228,8 @@
         });
 
         // On load, show location of dustbins and project route immediately.
-        var lon = [101.626,101.622,101.623,101.622];
-        var lat = [3.131,3.132, 3.133, 3.136];
+        var lon = [101.626,101.622, 101.623, 101.630, 101.629, 101.624967];
+        var lat = [3.131,3.132, 3.133, 3.134, 3.133, 3.135937];
 
         i  = lon.length;
 
@@ -243,6 +244,8 @@
           method: 'GET',
           url: assembleQueryURL(),
         }).done(function(data) {
+
+          console.log(data);
           // Create a GeoJSON feature collection
           var routeGeoJSON = turf.featureCollection([turf.feature(data.trips[0].geometry)]);
 
@@ -259,7 +262,7 @@
           // Animation function within Ajax
 
           var counter = 0;
-          var steps = 1000;
+          var steps = 10000;
 
           function animate() {
           // Update point geometry to a new position based on counter denoting
@@ -289,8 +292,12 @@
         // Start the animation.
         animate(counter);
 
-        });
+        // Passing data into summary to show the distance travelled and duration it will take.
+        // data.trips[0].distance is 10404.8
+        // data.trips[0].duration is 1777.4999999999998
+        document.getElementById('summary').innerHTML = "Your journey today will take " + ((data.trips[0].duration)/60).toFixed(0) + " minutes for " + ((data.trips[0].distance)/1000).toFixed(2) + " km!"
 
+        });
     });
 
         // Here you'll specify all the parameters necessary for requesting a response from the Optimization API
