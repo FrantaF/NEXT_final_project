@@ -1,23 +1,37 @@
-<div class="container conatiner-fluid login-container"> 
+<div class="h-100 container" id="login-container">
+    <div class="h-100 w-100 row d-flex align-items-center">
+        <div class="col-md-8" id="banner">
+            <h1>Smart City</h1>
+            <h2>Smarter Waste Management</h2>
+        </div>
+        <div class="col-md-4" id="login-form">
+            <%= form_for(:user, url: "/login") do |f| %>
 
-  <%= form_for(:user, url: "/login") do |f| %>
-  <div class="form-group">
-   <%= f.label :email %><br />
-   <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
- </div>
+            <div class="field">
+              <%= f.label :login, "Username" %><br />
+              <%= f.text_field :login, autofocus: true, class: "form-control", placeholder: "" %>
+            </div>
 
- <div class="form-group">
-   <%= f.label :password %><br />
-   <%= f.password_field :password, autocomplete: "current-password" %>   
- </div>
+            <div class="field">
+              <%= f.label :password %><br />
+              <%= f.password_field :password, autocomplete: "current-password", class: "form-control", placeholder: "" %>
+            </div>
 
+            <% if devise_mapping.rememberable? -%>
+              <div class="field">
+                <%= f.check_box :remember_me %>
+                <%= f.label :remember_me %>
+              </div>
+            <% end -%>
 
- <div class="actions">
-  <%= f.submit "Log in" %>
+            <div class="actions">
+              <%= f.submit "Log in" %>
+            </div>
+
+          <% end %>  
+        </div>
+    </div>
 </div>
-<% end %>
-
-</div>        
 
 <%#= form_for :session, url: "", id: "session-form", :html => {:class => "login-form"} do |form| %> 
 
