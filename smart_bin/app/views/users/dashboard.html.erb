@@ -279,8 +279,6 @@ button#simulate{
       {lng: 101.615, lat: 3.133},
       {lng: 101.620, lat: 3.133},
       ]
-      console.log("activebins")
-      console.log(activebins);
 
       i  = activebins.length;
 
@@ -333,7 +331,6 @@ button#simulate{
 
           // Animation function within Ajax
           function animate() {
-            console.log(counter);
           // Update point geometry to a new position based on counter denoting
           // the index to access the arc.
           point.features[0].geometry.coordinates = routeGeoJSON.features[0].geometry.coordinates[counter];
@@ -376,17 +373,6 @@ button#simulate{
 
         });
       }
-        function timerrr(){
-          console.log('1000');
-        }
-
-        function enableButton() {
-
-        }
-
-        function disableButton() {
-
-        }
 
       // Here you'll specify all the parameters necessary for requesting a response from the Optimization API
       function assembleQueryURL() {
