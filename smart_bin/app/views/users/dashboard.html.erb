@@ -98,8 +98,10 @@ button#simulate{
     // var speedFactor = 50;
 
 
+
+
     // Add your access token
-    mapboxgl.accessToken = <%= ENV['MAPBOX_PUBLIC_KEY'] %>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiZXpsYW5tb2hzZW4iLCJhIjoiY2psb3pqZjhpMXRrMTNrcnozYXhqZjJoYSJ9.-xdBDdcC7EEu6uBDl6NL6Q';
 
     // Initialize a map
     var map = new mapboxgl.Map({
@@ -354,11 +356,15 @@ button#simulate{
           } else {
             // if counter is more than steps (steps is also equivalent to index of coordinates)
             counter = 0
+            // Enable button when animation ends so button can be clicked again.
+            document.getElementById('simulate').removeAttribute("disabled")
           }
           counter = counter + 1;
         }
 
         document.getElementById('simulate').addEventListener('click', function() {
+          // Disabled button after clicked once.
+          this.setAttribute("disabled", "true")
           // Start the animation.
           animate(counter);
         })
@@ -372,6 +378,14 @@ button#simulate{
       }
         function timerrr(){
           console.log('1000');
+        }
+
+        function enableButton() {
+
+        }
+
+        function disableButton() {
+
         }
 
       // Here you'll specify all the parameters necessary for requesting a response from the Optimization API
