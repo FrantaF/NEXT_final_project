@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 2018_09_03_040729) do
   create_table "dustbin_stats", force: :cascade do |t|
     t.bigint "dustbin_id"
     t.bigint "fill_level_id"
+    t.datetime "collected_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["dustbin_id"], name: "index_dustbin_stats_on_dustbin_id"

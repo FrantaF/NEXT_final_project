@@ -1,22 +1,64 @@
-<div class="h-100 container">
-  <br>
-  <div class="h-100 row">
-    <div class="col-md-12" id="work-panel" style="border:1px dotted black;">
-      <div class="row" style="height:10%;border:1px dotted black;">
-        <h5>Hello, <%= current_user.username %>. Your role is <%= current_user.role %>!</h5>
-      </div>
-      <div class="row" style="height:45%;border:1px dotted black;">
-        <div class="col-4" style="border:1px dotted black;">Chart 1</div>
-        <div class="col-4" style="border:1px dotted black;">Chart 2</div>
-        <div class="col-4" style="border:1px dotted black;">Chart 3</div>
-      </div>
-      <div class="row" style="height:45%;border:1px dotted black;">
-        <div class="col-md-3" style="border:1px dotted black;">Project 1</div>
-        <div class="col-md-3" style="border:1px dotted black;">Project 2</div>
-        <div class="col-md-3" style="border:1px dotted black;">Project 3</div>
-        <div class="col-md-3" style="border:1px dotted black;">Project 4</div>
-      </div>
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-3" style="background:whitesmoke;">
+            <p>Area Summary</p>
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action"><%= @dustbins.first.area.name %>
+                    <span class="badge badge-primary badge-pill"><%= @dustbins.first.area.dustbins.where({ :fill_level_id => 9..11 }).count %></span>
+                </a>
+            </div>
+            <br>
+            <p>Dustbin Summary</p>
+            <div class="list-group">
+                <% @dustbins.each do |d| %>
+                <a href="#" class="list-group-item list-group-item-action"><%= d.code %>
+                    
+                </a>
+                <% end %>
+            </div>
+        </div>
+        
+        <div class="col-md-9" style="background:whitesmoke;"><br>
+            <h3>Account Summary</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <%= column_chart @dustbins.group(:id).limit(10).pluck("dustbins.code, sum((dustbins.fill_level_id-1)*10) as fill_level"),
+                    title: "Latest Top Ten Highest Fill Level (%)",
+                    colors: ['pink'],
+                    library: {
+                        tooltip: {
+                        pointFormat: 'Times Bought: <b>{point.y}</b>'
+                        }
+                    } %>
+                </div>
+
+                <div class="col-md-6">
+                    <%= line_chart @dustbins.group(:id).limit(10).pluck("dustbins.code, sum((dustbins.fill_level_id-1)*10) as fill_level"),
+                    title: "Latest Top Ten Highest Fill Level (%)",
+                    colors: ['aquamarine'],
+                    library: {
+                        tooltip: {
+                        pointFormat: 'Times Bought: <b>{point.y}</b>'
+                        }
+                    } %>
+                </div>
+
+                <div class="col-md-12">
+                    <%= line_chart @dustbins.limit(5).map { |d|
+                        {name: d.code, data: d.dustbin_stats.group_by_hour(:collected_at, format: "%b %d %l %P", last: 24).sum(:fill_level_id)}
+                    },
+                    title: "Top 5 Dustbins Last 24h Daily Trending",
+                    library: {
+                        tooltip: {
+                        pointFormat: 'Times Bought: <b>{point.y}</b>'
+                        }
+                    }
+                    %>
+                </div>
+
+            </div>
+        </div>
+
     </div>
-  </div>
-  <br>
 </div>

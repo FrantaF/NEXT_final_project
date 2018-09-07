@@ -13,6 +13,11 @@
     <li class="nav-item">           
       <%= link_to "Employee Profiles", "/employee_profiles", :class => "nav-link"%> 
     </li>
+    <% if current_user.admin? %>
+    <li class="nav-item"> 
+      <%= link_to "Admin", rails_admin_path, class: "nav-link" %>
+    </li>
+    <% end %>
     <li class="nav-item">           
       <%= link_to "Sign Out", "/sign_out", method: :delete, :class => "nav-link"%>      
     </li>
