@@ -3,6 +3,7 @@ class CreateDustbinStats < ActiveRecord::Migration[5.2]
     create_table :dustbin_stats do |t|
       t.references :dustbin, index: true
       t.references :fill_level, index: true
+      t.datetime :collected_at
       t.timestamps
     end
 

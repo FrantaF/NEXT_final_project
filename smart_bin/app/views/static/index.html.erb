@@ -1,156 +1,135 @@
 <!-- Header -->
+    <style>
+        header.masthead {
+        text-align: center;
+        color: white;
+        background-image: url('http://homefinder.com.my/wp-content/uploads/2016/08/2016062314002883_Kuala-Lumpur-City-Center-e1476177186323.jpg');
+        background-repeat: no-repeat;
+        background-attachment: scroll;
+        background-position: center center;
+        background-size: cover;
+      }
+    </style>
+    
     <header class="masthead">
       <div class="container">
         <div class="intro-text">
-          <div class="intro-lead-in">Welcome To Our Studio!</div>
-          <div class="intro-heading text-uppercase">It's Nice To Meet You</div>
+          <br>
+          <div class="intro-heading text-uppercase">We are awecome company!</h2>
+          <div class="intro-lead-in">These are some of the cool things we do</div>
         </div>
       </div>
-      <br><br><br><br><br>
     </header>
 
-    <!-- Notice -->
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-
     <!-- Services -->
-    <section id="services">
+    <section id="solutions" style="background-color:whitesmoke;">
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase">Services</h2>
-            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+            <h2 class="section-heading text-uppercase">Solutions</h2>
+            <h3 class="section-subheading text-muted">Our company offer End to End solutions.</h3>
           </div>
         </div>
         <div class="row text-center">
           <div class="col-md-4">
-            <span class="fa-stack fa-4x">
-              <i class="fas fa-circle fa-stack-2x text-primary"></i>
-              <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
-            </span>
-            <h4 class="service-heading">Dress Rental</h4>
-            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+            <%= image_tag 'raspberry_pi.jpg', class: "mx-auto d-block img-fluid homepage-pic", style: "width:250px;height200px;" %>
+            <h4 class="service-heading">IoT Devices</h4>
+            <p class="text-muted">SmartBin's IoT level sensors are the world’s smartest and most widely deployed. Our suite of sensors are compact, robust, wireless, and proven in many container types.</p>
+            <%= link_to "Tell Me More", "#" %> 
           </div>
           <div class="col-md-4">
-            <span class="fa-stack fa-4x">
-              <i class="fas fa-circle fa-stack-2x text-primary"></i>
-              <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
-            </span>
-            <h4 class="service-heading">Photography</h4>
-            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+            <%= image_tag 'monitoring.jpg', class: "mx-auto d-block img-fluid homepage-pic", style: "width:250px;height200px;" %>
+            <h4 class="service-heading">Route Tracking</h4>
+            <p class="text-muted">Intelligent Monitoring is the IoT solution that is revolutionizing how Smart Cities and private companies service their container assets.</p>
+            <%= link_to "Tell Me More", "#" %> 
           </div>
           <div class="col-md-4">
-            <span class="fa-stack fa-4x">
-              <i class="fas fa-circle fa-stack-2x text-primary"></i>
-              <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
-            </span>
-            <h4 class="service-heading">Web Security</h4>
-            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+            <%= image_tag 'analytics.png', class: "mx-auto d-block img-fluid homepage-pic", style: "width250px;height200px;" %>
+            <h4 class="service-heading">Statistics</h4>
+            <p class="text-muted">Monitor your containers and plan optimized routes from anywhere. SmartBin Live is the IoT game changer for collectors and distributors around the world.</p>
+            <%= link_to "Tell Me More", "#" %> 
           </div>
         </div>
       </div>
-    </section>
+    </section><tr>
 
     <!-- Portfolio Grid -->
-    <section class="bg-light" id="gallery">
+    <section id="subscriptions" style="background-color:white;">
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase">Gallery</h2>
-            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+            <h2 class="section-heading text-uppercase">Subscription Package</h2>
+            <h3 class="section-subheading text-muted">We offer good packages.</h3>
           </div>
         </div>
+        <!-- Content Row -->
         <div class="row">
-          <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal1">
-              <div class="portfolio-hover">
-                <div class="portfolio-hover-content">
-                  <i class="fas fa-plus fa-3x"></i>
+            <div class="col-md-4">
+                <div class="panel panel-default text-center">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Basic</h3>
+                    </div>
+                    <div class="panel-body">
+                        <span class="price"><sup>$</sup>19<sup>99</sup></span>
+                        <span class="period">per month</span>
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item"><strong>1</strong> User</li>
+                        <li class="list-group-item"><strong>5</strong> Projects</li>
+                        <li class="list-group-item"><strong>Unlimited</strong> Email Accounts</li>
+                        <li class="list-group-item"><strong>10GB</strong> Disk Space</li>
+                        <li class="list-group-item"><strong>100GB</strong> Monthly Bandwidth</li>
+                        <li class="list-group-item"><%= link_to 'Subscribe', braintree_payment_path, :class => 'btn btn-primary' %>
+                        </li>
+                    </ul>
                 </div>
-              </div>
-              <img class="img-fluid" src="#" alt="">
-            </a>
-            <div class="portfolio-caption">
-              <h4>Threads</h4>
-              <p class="text-muted">Illustration</p>
             </div>
-          </div>
-          <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2">
-              <div class="portfolio-hover">
-                <div class="portfolio-hover-content">
-                  <i class="fas fa-plus fa-3x"></i>
+            <div class="col-md-4">
+                <div class="panel panel-primary text-center">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Plus <span class="label label-success">Best Value</span></h3>
+                    </div>
+                    <div class="panel-body">
+                        <span class="price"><sup>$</sup>39<sup>99</sup></span>
+                        <span class="period">per month</span>
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item"><strong>10</strong> User</li>
+                        <li class="list-group-item"><strong>500</strong> Projects</li>
+                        <li class="list-group-item"><strong>Unlimited</strong> Email Accounts</li>
+                        <li class="list-group-item"><strong>1000GB</strong> Disk Space</li>
+                        <li class="list-group-item"><strong>10000GB</strong> Monthly Bandwidth</li>
+                        <li class="list-group-item"><%= link_to 'Subscribe', braintree_payment_path, :class => 'btn btn-primary' %>
+                        </li>
+                    </ul>
                 </div>
-              </div>
-              <img class="img-fluid" src="#" alt="">
-            </a>
-            <div class="portfolio-caption">
-              <h4>Explore</h4>
-              <p class="text-muted">Graphic Design</p>
             </div>
-          </div>
-          <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal3">
-              <div class="portfolio-hover">
-                <div class="portfolio-hover-content">
-                  <i class="fas fa-plus fa-3x"></i>
+            <div class="col-md-4">
+                <div class="panel panel-default text-center">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Ultra</h3>
+                    </div>
+                    <div class="panel-body">
+                        <span class="price"><sup>$</sup>159<sup>99</sup></span>
+                        <span class="period">per month</span>
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item"><strong>Unlimted</strong> Users</li>
+                        <li class="list-group-item"><strong>Unlimited</strong> Projects</li>
+                        <li class="list-group-item"><strong>Unlimited</strong> Email Accounts</li>
+                        <li class="list-group-item"><strong>10000GB</strong> Disk Space</li>
+                        <li class="list-group-item"><strong>Unlimited</strong> Monthly Bandwidth</li>
+                        <li class="list-group-item"><%= link_to 'Subscribe', braintree_payment_path, :class => 'btn btn-primary' %>
+                        </li>
+                    </ul>
                 </div>
-              </div>
-              <img class="img-fluid" src="#" alt="">
-            </a>
-            <div class="portfolio-caption">
-              <h4>Finish</h4>
-              <p class="text-muted">Identity</p>
             </div>
-          </div>
-          <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal4">
-              <div class="portfolio-hover">
-                <div class="portfolio-hover-content">
-                  <i class="fas fa-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="#" alt="">
-            </a>
-            <div class="portfolio-caption">
-              <h4>Lines</h4>
-              <p class="text-muted">Branding</p>
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal5">
-              <div class="portfolio-hover">
-                <div class="portfolio-hover-content">
-                  <i class="fas fa-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="#" alt="">
-            </a>
-            <div class="portfolio-caption">
-              <h4>Southwest</h4>
-              <p class="text-muted">Website Design</p>
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal6">
-              <div class="portfolio-hover">
-                <div class="portfolio-hover-content">
-                  <i class="fas fa-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="#" alt="">
-            </a>
-            <div class="portfolio-caption">
-              <h4>Window</h4>
-              <p class="text-muted">Photography</p>
-            </div>
-          </div>
         </div>
-      </div>
+        <!-- /.row -->   
     </section>
 
     <!-- Team -->
-    <section class="bg-light" id="team">
+    <section id="team" style="background-color:whitesmoke;">
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
@@ -161,8 +140,8 @@
         <div class="row">
           <div class="col-sm-4">
             <div class="team-member">
-              <img class="mx-auto rounded-circle" src="#" alt="">
-              <h4>Kay Garland</h4>
+              <%= image_tag 'profile-2.png', class: "mx-auto rounded-circle" %>
+              <h4>Franta</h4>
               <p class="text-muted">Lead Designer</p>
               <ul class="list-inline social-buttons">
                 <li class="list-inline-item">
@@ -185,8 +164,8 @@
           </div>
           <div class="col-sm-4">
             <div class="team-member">
-              <img class="mx-auto rounded-circle" src="#" alt="">
-              <h4>Larry Parker</h4>
+              <%= image_tag 'profile-3.png', class: "mx-auto rounded-circle" %>
+              <h4>Ezlan</h4>
               <p class="text-muted">Lead Marketer</p>
               <ul class="list-inline social-buttons">
                 <li class="list-inline-item">
@@ -209,8 +188,8 @@
           </div>
           <div class="col-sm-4">
             <div class="team-member">
-              <img class="mx-auto rounded-circle" src="#" alt="">
-              <h4>Diana Pertersen</h4>
+              <%= image_tag 'profile-4.png', class: "mx-auto rounded-circle" %>
+              <h4>Shin</h4>
               <p class="text-muted">Lead Developer</p>
               <ul class="list-inline social-buttons">
                 <li class="list-inline-item">
@@ -235,34 +214,6 @@
         <div class="row">
           <div class="col-lg-8 mx-auto text-center">
             <p class="large text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Clients -->
-    <section class="py-5">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-3 col-sm-6">
-            <a href="#">
-              <img class="img-fluid d-block mx-auto" src="#" alt="">
-            </a>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <a href="#">
-              <img class="img-fluid d-block mx-auto" src="#" alt="">
-            </a>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <a href="#">
-              <img class="img-fluid d-block mx-auto" src="#" alt="">
-            </a>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <a href="#">
-              <img class="img-fluid d-block mx-auto" src="#" alt="">
-            </a>
           </div>
         </div>
       </div>
@@ -312,8 +263,6 @@
         </div>
       </div>
     </section>
-
-<%= javascript_include_tag "static", "data-turbolinks-track" => true  %>
 
 <%= render template: "static/modal" %>
 
