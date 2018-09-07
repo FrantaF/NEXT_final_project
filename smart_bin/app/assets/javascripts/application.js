@@ -15,7 +15,8 @@
 //= require jquery-ui
 //= require popper
 //= require turbolinks
-//= require Chart.min
+//= require Chart.bundle
+//= require chartkick
 //= require bootstrap
 //= require bootstrap-table
 //= require bootstrap-sprockets
