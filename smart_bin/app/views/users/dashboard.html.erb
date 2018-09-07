@@ -64,17 +64,28 @@ button#simulate{
 
     <!-- For MapBox -->
     <h6 id="summary"></h6>
-    Map Starts
     <div id='map' class='contain map-button' style="border:1px solid black;">
       <button id='simulate'>Simulate Journey</button>
     </div>
-    Map Ends
 
+    <div style="visibility: hidden;" id="activeBinsSource">
+      [
+        {lng: 101.620, lat: 3.131},
+        {lng: 101.622, lat: 3.135},
+        {lng: 101.622, lat: 3.132},
+        {lng: 101.622, lat: 3.134},
+        {lng: 101.624967, lat: 3.135937}, 
+        {lng: 101.6245, lat: 3.131},
+        {lng: 101.62994, lat: 3.1349},
+        {lng: 101.615, lat: 3.133},
+        {lng: 101.620, lat: 3.133},
+        ]
+    </div>
 
     <script>
 
     console.log("Script Starts");
-    var defaultCenter = [101.623, 3.134];
+    var defaultCenter = [101.623, 3.135];
     var truckLocation = [101.625871, 3.138663]; //starting point
     var depoLocation = [101.625871, 3.138663]; //starting point (purposely doubled)
     // var lastQueryTime = 0;
@@ -88,14 +99,14 @@ button#simulate{
 
 
     // Add your access token
-    mapboxgl.accessToken = 'pk.eyJ1IjoiZXpsYW5tb2hzZW4iLCJhIjoiY2psb3pqZjhpMXRrMTNrcnozYXhqZjJoYSJ9.-xdBDdcC7EEu6uBDl6NL6Q';
+    mapboxgl.accessToken = <%= ENV['MAPBOX_PUBLIC_KEY'] %>
 
     // Initialize a map
     var map = new mapboxgl.Map({
       container: 'map', // container id
       style: 'mapbox://styles/mapbox/light-v9', // stylesheet location
       center: defaultCenter, // starting position
-      zoom: 14.5 // starting zoom
+      zoom: 14 // starting zoom
     });
 
 
@@ -178,6 +189,7 @@ button#simulate{
           'icon-allow-overlap': true,
           'icon-ignore-placement': true,
           'icon-image': 'laundry-15',
+          'icon-size': 1.2
         }
       });
 
@@ -253,6 +265,7 @@ button#simulate{
 
       // On load, show location of dustbins and project route immediately.
       // Will receive input from backend on which bins.
+
       var activebins = [
       // {lng: 101.620, lat: 3.131},
       {lng: 101.622, lat: 3.135},
@@ -264,6 +277,8 @@ button#simulate{
       {lng: 101.615, lat: 3.133},
       {lng: 101.620, lat: 3.133},
       ]
+      console.log("activebins")
+      console.log(activebins);
 
       i  = activebins.length;
 
@@ -316,6 +331,7 @@ button#simulate{
 
           // Animation function within Ajax
           function animate() {
+            console.log(counter);
           // Update point geometry to a new position based on counter denoting
           // the index to access the arc.
           point.features[0].geometry.coordinates = routeGeoJSON.features[0].geometry.coordinates[counter];
@@ -336,20 +352,15 @@ button#simulate{
           if (counter < steps) {
             requestAnimationFrame(animate);
           } else {
+            // if counter is more than steps (steps is also equivalent to index of coordinates)
             counter = 0
           }
-
           counter = counter + 1;
         }
 
         document.getElementById('simulate').addEventListener('click', function() {
-
           // Start the animation.
           animate(counter);
-          // function to delete map inner html and reload map
-          // console.log((((data.trips[0].distance)/1000).toFixed(2))*7250);
-          // setTimeout('load_js();', (((data.trips[0].distance)/1000).toFixed(2)) * 7250);
-          // setTimeout(load_js, 55000);
         })
 
         // Passing data into summary to show the distance travelled and duration it will take.
