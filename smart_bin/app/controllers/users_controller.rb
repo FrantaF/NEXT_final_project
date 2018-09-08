@@ -68,11 +68,26 @@ class UsersController < ApplicationController
   end 
 
   def index
+
+    @geojson = Array.new
+
     if current_user.admin?
       @dustbins = Dustbin.all.order("fill_level_id DESC")
     elsif current_user.user?
       @dustbins = current_user.dustbins.order("fill_level_id DESC")
     end
+
+    @dustbins.each do |d|
+      if d.fill_level_id > 7
+        @geojson << {lng: d.latitude.to_f, lat: d.longitude.to_f}
+      end
+    end
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @geojson }
+    end
+
   end
 
   def dashboard

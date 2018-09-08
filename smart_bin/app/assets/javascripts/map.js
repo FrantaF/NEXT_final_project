@@ -1,87 +1,3 @@
-<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.css' rel='stylesheet' />
-<script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
-<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
-<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.js'></script>
-<!-- <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/turf/v2.0.0/turf.min.js' charset='utf-8'></script> -->
-
-<style>
-  
-  body {
-    margin: 0;
-    padding: 0;
-  }
-
-  .truck {
-    margin: -10px -10px;
-    width: 2px;
-    height: 2px;
-    border: 2px solid #fff;
-    border-radius: 50%;
-    background: #3887be;
-    pointer-events: none;
-  }
-
-.map-button{
-  position: relative;
-  width:100%;
-  height:500px;
-}
-
-button#simulate{
-  position: absolute;
-  top: 5px;
-  left: 5px;
-  z-index: 10;
-  font:600 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-  background-color: #3386c0;
-  color: #fff;
-  display: inline-block;
-  margin: 0;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-  border-radius: 3px;
-}
-
-</style>
-
-
-
-<!-- Page Content -->
-<div class="container">
-
-    <!-- Page Heading/Breadcrumbs -->
-    <div class="row">
-        <div class="col-lg-12 mt-5">            
-            <ol class="breadcrumb">
-                <li><%= link_to 'Dashboard', root_path %>
-                </li>                
-            </ol>
-        </div>
-    </div>
-    <!-- /.row -->
-
-    <!-- For MapBox -->
-    <h6 id="summary"></h6>
-    <div id='map' class='contain map-button' style="border:1px solid black;">
-      <button id='simulate'>Simulate Journey</button>
-    </div>
-
-    <div style="visibility: hidden;" id="activeBinsSource">
-      [
-        {lng: 101.620, lat: 3.131},
-        {lng: 101.622, lat: 3.135},
-        {lng: 101.622, lat: 3.132},
-        {lng: 101.622, lat: 3.134},
-        {lng: 101.624967, lat: 3.135937}, 
-        {lng: 101.6245, lat: 3.131},
-        {lng: 101.62994, lat: 3.1349},
-        {lng: 101.615, lat: 3.133},
-        {lng: 101.620, lat: 3.133},
-        ]
-    </div>
-
-    <script>
 
     console.log("Script Starts");
     var defaultCenter = [101.623, 3.135];
@@ -96,30 +12,22 @@ button#simulate{
     var pause = true;
     // var speedFactor = 50;
 
-
-
-
     // Add your access token
     mapboxgl.accessToken = 'pk.eyJ1IjoiZXpsYW5tb2hzZW4iLCJhIjoiY2psb3pqZjhpMXRrMTNrcnozYXhqZjJoYSJ9.-xdBDdcC7EEu6uBDl6NL6Q';
-
     // Initialize a map
     var map = new mapboxgl.Map({
       container: 'map', // container id
-      style: 'mapbox://styles/mapbox/light-v9', // stylesheet location
+      style: 'mapbox://styles/mapbox/streets-v9', // stylesheet location
       center: defaultCenter, // starting position
       zoom: 14 // starting zoom
     });
 
-
     // For warehouse
     var depo = turf.featureCollection([turf.point(depoLocation)]);
-
     // Create an empty GeoJSON feature collection for drop-off locations
     var pickups = turf.featureCollection([]);
-
     // Create an empty GeoJSON feature collection, which will be used as the data source for the route before users add any new data
     var nothing = turf.featureCollection([]);
-
     // Point for animation
     var point = {
         "type": "FeatureCollection",
@@ -133,18 +41,17 @@ button#simulate{
         }]
     };
 
+  
     
     map.on('load', function() {
+
       // For the truck marker
       var marker = document.createElement('div');
       marker.classList = 'truck';
-
       // Create a new marker for truck
       truckMarker = new mapboxgl.Marker(marker)
       .setLngLat(truckLocation)
       .addTo(map);
-
-
       // Create a circle layer for next academy
       map.addLayer({
         id: 'depo',
@@ -160,7 +67,6 @@ button#simulate{
           'circle-stroke-width': 3
         }
       });
-
       // Create a symbol layer on top of circle layer for next academy
       map.addLayer({
         id: 'depo-symbol',
@@ -177,7 +83,6 @@ button#simulate{
           'text-color': '#3887be'
         }
       });
-
       // For Extra on-click pickups
       map.addLayer({
         id: 'pickups-symbol',
@@ -193,13 +98,11 @@ button#simulate{
           'icon-size': 1.2
         }
       });
-
       // Layer of empty source for routing
       map.addSource('route', {
         type: 'geojson',
         data: nothing
       });
-
       // Layer for route
       map.addLayer({
         id: 'routeline-active',
@@ -217,7 +120,6 @@ button#simulate{
           }
         }
       }, 'waterway-label');
-
       // Layer to add direction arrows to routes
       map.addLayer({
         id: 'routearrows',
@@ -242,14 +144,11 @@ button#simulate{
           'text-halo-width': 3
         }
       }, 'waterway-label');
-
       // Layer and source for animation
-
       map.addSource('animateRoute', {
         type: 'geojson',
         data: point
       });
-
       map.addLayer({
           "id": "point",
           "source": "animateRoute",
@@ -263,45 +162,35 @@ button#simulate{
               "icon-ignore-placement": true
           }
       });
-
       // On load, show location of dustbins and project route immediately.
       // Will receive input from backend on which bins.
-
-      var activebins = [
-      // {lng: 101.620, lat: 3.131},
-      {lng: 101.622, lat: 3.135},
-      {lng: 101.622, lat: 3.132},
-      {lng: 101.622, lat: 3.134},
-      {lng: 101.624967, lat: 3.135937}, 
-      {lng: 101.6245, lat: 3.131},
-      // {lng: 101.62994, lat: 3.1349}, //Next Academy
-      {lng: 101.615, lat: 3.133},
-      {lng: 101.620, lat: 3.133},
-      ]
-
-      i  = activebins.length;
-
-      for (x = 0; x < (i); x++){
-        newDropoff(activebins[x]);
-      }
-
-      updatepickups(pickups);
-
-      // Make a request to the Optimization API'
-      callAjax(activebins)
+      $.ajax({
+        dataType: 'text',
+        url: 'users.json',
+        success: function(data) {
+          var activebins;
+          activebins = $.parseJSON(data);
+          console.log(activebins);
+          i  = activebins.length;
+          for (x = 0; x < i; x++){
+            newDropoff(activebins[x]);
+          }
+          updatepickups(pickups);
+          // Make a request to the Optimization API'
+          callAjax(activebins)
+          }
+        });
       
-  });
+      });
 
       function callAjax(activebins) {
         $.ajax({
           method: 'GET',
           url: assembleQueryURL(),
         }).done(function(data) {
-
           console.log(data);
           // Create a GeoJSON feature collection
           var routeGeoJSON = turf.featureCollection([turf.feature(data.trips[0].geometry)]);
-
           // If there is no route provided, reset
           if (!data.trips[0]) {
             routeGeoJSON = nothing;
@@ -311,23 +200,17 @@ button#simulate{
             map.getSource('route')
               .setData(routeGeoJSON);
           }
-
           // Breaking routeGeoJSON into smaller frames
           var counter = 0;
           var steps = 3000;
-
           var lineDistance = turf.lineDistance(routeGeoJSON.features[0], {units: 'kilometers'});
-
           var road = []
           
           for (var i = 0; i < lineDistance; i += lineDistance / steps) {
               var segment = turf.along(routeGeoJSON.features[0], i, {units: 'kilometers'});
               road.push(segment.geometry.coordinates);
           }
-
           routeGeoJSON.features[0].geometry.coordinates = road
-
-
           // Animation function within Ajax
           function animate() {
           // Update point geometry to a new position based on counter denoting
@@ -340,12 +223,10 @@ button#simulate{
               turf.point(routeGeoJSON.features[0].geometry.coordinates[counter >= steps ? counter - 1 : counter]),
               turf.point(routeGeoJSON.features[0].geometry.coordinates[counter >= steps ? counter : counter + 1])
           );
-
           // Update the source with this new data.
           // map.getSource('point').setData(point);
             map.getSource('animateRoute')
               .setData(point);
-
           // Request the next frame of animation so long the end has not been reached.
           if (counter < steps) {
             requestAnimationFrame(animate);
@@ -357,40 +238,32 @@ button#simulate{
           }
           counter = counter + 1;
         }
-
         document.getElementById('simulate').addEventListener('click', function() {
           // Disabled button after clicked once.
           this.setAttribute("disabled", "true")
           // Start the animation.
           animate(counter);
         })
-
         // Passing data into summary to show the distance travelled and duration it will take.
         // data.trips[0].distance is 10404.8
         // data.trips[0].duration is 1777.4999999999998
         document.getElementById('summary').innerHTML = "Your journey today will take " + ((data.trips[0].duration)/60).toFixed(0) + " minutes for " + ((data.trips[0].distance)/1000).toFixed(2) + " km to collect " + activebins.length + " bins!"
-
         });
       }
-
       // Here you'll specify all the parameters necessary for requesting a response from the Optimization API
       function assembleQueryURL() {
         // Store the location of the truck in a variable called coordinates
         var coordinates = [truckLocation];
         var distributions = [];
         keepTrack = [truckLocation];
-
         // Create an array of GeoJSON feature collections for each point
         var restJobs = objectToArray(pointHopper);
-
         // If there are actually orders from this restaurant
         if (restJobs.length > 0) {
-
           // Check to see if the request was made after visiting the restaurant
           var needToPickUp = restJobs.filter(function(d, i) {
             return d.properties.orderTime > lastAtRestaurant;
           }).length > 0;
-
           // If the request was made after picking up from the restaurant,
           // Add the restaurant as an additional stop
           if (needToPickUp) {
@@ -400,7 +273,6 @@ button#simulate{
             // push the restaurant itself into the array
             keepTrack.push(pointHopper.depo);
           }
-
           restJobs.forEach(function(d, i) {
             // Add dropoff to list
             keepTrack.push(d);
@@ -415,9 +287,6 @@ button#simulate{
         // Coordinates will include the current location of the truck,
         return 'https://api.mapbox.com/optimized-trips/v1/mapbox/driving/' + coordinates.join(';') + '?distributions=' + distributions.join(';') + '&overview=full&steps=true&geometries=geojson&source=first&access_token=' + mapboxgl.accessToken;
       }
-
-
-
       // This functions 1)create an object with new coordinate, 2)push it to pickups array
       function newDropoff(coords) {
         // Store the clicked point as a new GeoJSON feature with
@@ -429,16 +298,15 @@ button#simulate{
             key: Math.random()
           }
         );
-
         pickups.features.push(pt);
         pointHopper[pt.properties.key] = pt;
       }
+      
       // Update location to pickup-symbols based on pickups.Refactored to just 1 time.
       function updatepickups(geojson) {
         map.getSource('pickups-symbol')
           .setData(geojson);
       }
-
       function objectToArray(obj) {
         var keys = Object.keys(obj);
         var routeGeoJSON = keys.map(function(key) {
@@ -448,69 +316,3 @@ button#simulate{
       }
 
       console.log('script Ends')
-
-
-    </script>
-
-
-    <!-- Content Row -->
-    <div class="row">
-        <!-- Map Column -->
-        <div class="col-md-8">
-            <!-- Embedded Google Map -->
-            <iframe width="100%" height="400px" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?hl=en&amp;ie=UTF8&amp;ll=37.0625,-95.677068&amp;spn=56.506174,79.013672&amp;t=m&amp;z=4&amp;output=embed"></iframe>
-        </div>
-        <!-- Contact Details Column -->
-        <div class="col-md-4">
-            <h3>Your Savings</h3>
-            <p>
-                You are saving XXX$ by only collecting 705 of the bins.
-            </p>
-
-
-        </div>
-    </div>
-    <!-- /.row -->
-
-    <!-- Table view -->
-    <div class="container">
-        <h2>Bin Table</h2>                    
-        <table class="table">
-            <thead>
-              <tr>
-                <th>Unit</th>
-                <th>Created on</th>
-                <th>Currenct Capacity</th>
-                <th>Location</th>
-                <th>Collection Date</th>
-            </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>A</td>
-            <td>01.08.2018</td>
-            <td>70%</td>
-            <td>Click here</td>
-            <td>2 days ago</td>
-        </tr>
-        <tr>
-            <td>B</td>
-            <td>01.08.2018</td>
-            <td>80%</td>
-            <td>Click here</td>
-            <td>Last week</td>
-        </tr>
-        <tr>
-            <td>C</td>
-            <td>01.08.2018</td>
-            <td>90%</td>
-            <td>Click here</td>
-            <td>Today</td>
-        </tr>
-    </tbody>
-</table>
-</div>
-</div>
-<!-- /.container -->
-
-
