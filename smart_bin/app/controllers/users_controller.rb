@@ -78,9 +78,22 @@ class UsersController < ApplicationController
     end
 
     @dustbins.each do |d|
-      if d.fill_level_id > 7
-        @geojson << {lng: d.latitude.to_f, lat: d.longitude.to_f}
-      end
+      #if d.fill_level_id > 7
+        @geojson << {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [d.latitude.to_f, d.longitude.to_f]
+          },
+          properties: {
+            code: d.name,
+            address: d.address,
+            level: d.fill_level.level,
+            percentage: d.fill_level.percentage,
+            color: d.fill_level.description,
+          }
+        }
+      #end
     end
 
     respond_to do |format|

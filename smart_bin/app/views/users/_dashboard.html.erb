@@ -8,19 +8,18 @@
                 <div id='map' class='container map-button' style="border:1px solid black;">
                   <button id='simulate'>Simulate Journey</button>
                 </div>
-                
                 <%= stylesheet_link_tag 'map', 'data-turbolinks-track': 'reload' %>
                 <%= javascript_include_tag 'map', 'data-turbolinks-track': 'reload' %>
             </div>
         </div>
 
-        <div id="toolbar">
+        <%# <div id="toolbar">
             <select class="form-control">
                 <option value="">Export Basic</option>
                 <option value="all">Export All</option>
                 <option value="selected">Export Selected</option>
             </select>
-        </div>
+        </div> %>
 
         <div class="row w-100" id="table-panel">
             <table id="table" data-toggle="table" data-search="true" data-filter-control="true" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
@@ -68,12 +67,5 @@
             });
         })
     </script>
-
-</div>
-
-
-<div class="container">
-  
-    
 
 </div>

@@ -9,6 +9,68 @@
     pointer-events: none;
 }
 
+.marker {
+  cursor: pointer;
+}
+
+.marker:before {
+  font-family: FontAwesome;
+  font-size: 22px;
+  text-shadow: 1px 1px 1px grey;
+  content: "\f014";
+}
+
+.marker:hover {
+  text-shadow: 2px 2px 2px yellow;
+  font-size: 28px;
+}
+
+
+.full{
+  color: red;
+  animation:blinkingBg 1.8s infinite;
+}
+
+.critical{
+  color: orange;
+}
+
+.half{
+  color: gold;
+}
+
+.some{
+  color: seagreen;
+}
+
+.less{
+  color: blue;
+}
+
+.full{
+  color: black;
+}
+
+.blinking{
+  animation:blinkingBg 1.8s infinite;
+}
+
+@keyframes blinkingBg{
+  0%{     color: red;    }
+  50%{    color: coral; }
+  100%{   color: red;    }
+}
+
+
+.mapboxgl-popup {
+  max-width: 200px;
+}
+
+.mapboxgl-popup-content {
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+}
+
 .map-button{
   position: relative;
   width:100%;

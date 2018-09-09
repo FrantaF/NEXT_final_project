@@ -164,13 +164,27 @@
       });
       // On load, show location of dustbins and project route immediately.
       // Will receive input from backend on which bins.
+      var geojson;
+
       $.ajax({
         dataType: 'text',
         url: 'users.json',
         success: function(data) {
-          var activebins;
-          activebins = $.parseJSON(data);
-          console.log(activebins);
+          
+          var activebins = new Array();
+          geojson = $.parseJSON(data);
+          
+
+          // Update activebins
+          l  = geojson.length;
+          for (x = 0; x < l; x++){
+            // Pickup Only Dustbins where > 70%
+            if (geojson[x].properties.level >= 70){
+            activebins[x] = {lng: geojson[x].geometry.coordinates[0], lat: geojson[x].geometry.coordinates[1]};
+            }
+          }
+
+          // Set Dropoff for activebins
           i  = activebins.length;
           for (x = 0; x < i; x++){
             newDropoff(activebins[x]);
@@ -178,10 +192,17 @@
           updatepickups(pickups);
           // Make a request to the Optimization API'
           callAjax(activebins)
+
+          // Update Marker
+          updatemarker(geojson);
           }
+
         });
       
       });
+      
+
+    
 
       function callAjax(activebins) {
         $.ajax({
@@ -287,6 +308,7 @@
         // Coordinates will include the current location of the truck,
         return 'https://api.mapbox.com/optimized-trips/v1/mapbox/driving/' + coordinates.join(';') + '?distributions=' + distributions.join(';') + '&overview=full&steps=true&geometries=geojson&source=first&access_token=' + mapboxgl.accessToken;
       }
+
       // This functions 1)create an object with new coordinate, 2)push it to pickups array
       function newDropoff(coords) {
         // Store the clicked point as a new GeoJSON feature with
@@ -301,12 +323,29 @@
         pickups.features.push(pt);
         pointHopper[pt.properties.key] = pt;
       }
-      
+
       // Update location to pickup-symbols based on pickups.Refactored to just 1 time.
       function updatepickups(geojson) {
         map.getSource('pickups-symbol')
           .setData(geojson);
       }
+
+      //Add Markers
+      function updatemarker(geojson) {
+        geojson.forEach(function(marker) {
+          // create a HTML element for each feature
+          var el = document.createElement('div');
+          el.className = 'marker ' + marker.properties.color;
+
+          // make a marker for each feature and add to the map
+            new mapboxgl.Marker(el)
+            .setLngLat(marker.geometry.coordinates)
+            .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
+            .setHTML('<h5>' + marker.properties.code + '</h5><p>' + marker.properties.address + '</p><p>' + marker.properties.level + '</p>'))
+            .addTo(map);
+        });
+      }
+
       function objectToArray(obj) {
         var keys = Object.keys(obj);
         var routeGeoJSON = keys.map(function(key) {
