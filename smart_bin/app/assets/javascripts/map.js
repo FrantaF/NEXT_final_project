@@ -1,4 +1,3 @@
-
     console.log("Script Starts");
     var defaultCenter = [101.623, 3.135];
     var truckLocation = [101.625871, 3.138663]; //starting point
@@ -174,7 +173,6 @@
           var activebins = new Array();
           geojson = $.parseJSON(data);
           
-
           // Update activebins
           l  = geojson.length;
           for (x = 0; x < l; x++){
@@ -341,7 +339,7 @@
             new mapboxgl.Marker(el)
             .setLngLat(marker.geometry.coordinates)
             .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
-            .setHTML('<h5>' + marker.properties.code + '</h5><p>' + marker.properties.address + '</p><p>' + marker.properties.level + '</p>'))
+            .setHTML('<h5>' + marker.properties.code + '</h5><p>' + marker.properties.address + '</p><p>' + marker.properties.percentage + '</p>'))
             .addTo(map);
         });
       }
@@ -353,5 +351,9 @@
         });
         return routeGeoJSON;
       }
+
+
+      
+      
 
       console.log('script Ends')
