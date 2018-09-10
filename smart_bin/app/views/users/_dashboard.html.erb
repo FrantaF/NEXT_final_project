@@ -28,10 +28,7 @@
             </select>
         </div> %>
 
-        <% response = HTTParty.get('http://192.168.1.192:1234/bins') %>
-        <% json = JSON.parse(response.body) %>
         <%= link_to "Demo Update", '/dustbins/1/update', method: "post", class: "nav-link"%>
-        <p> Current Level: <%= (json["fill level"]*100).to_f.round %>% </p>
 
         <br>
         <div class="table-responsive" id="table-panel">
