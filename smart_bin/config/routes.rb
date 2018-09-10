@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
 
   
-
-
   root 'static#index'
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
@@ -29,6 +27,7 @@ Rails.application.routes.draw do
   get "/users/dashboard", to: "users#dashboard"
   get "/users/analytic", to: "users#analytic"
   get "/users/profile", to: "users#profile"
+  
   get "/users/chart", to: "users#chart"
 
    #overriding devise      
@@ -43,5 +42,8 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: "registrations"} 
 
   resources :dustbins
+  post "/dustbins/:id/update" => "dustbins#update"
+
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

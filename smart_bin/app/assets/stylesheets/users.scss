@@ -17,6 +17,8 @@
     pointer-events: none;
   }
 
+  
+
 .map-button{
   position: relative;
   width:100%;
@@ -37,4 +39,8 @@ button#simulate{
   border: none;
   cursor: pointer;
   border-radius: 3px;
+}
+
+.table-hover tbody tr:hover td:not(:first-child){
+  background-color: lightgray;
 }

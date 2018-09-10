@@ -17,6 +17,7 @@
                 </div>
                 <%= javascript_include_tag 'map', 'data-turbolinks-track': 'reload' %>
             </div>
+            <button id='update-dropoff'>Update Dropoff</button>
         </div>
 
         <%# <div id="toolbar">
@@ -26,13 +27,19 @@
                 <option value="selected">Export Selected</option>
             </select>
         </div> %>
+
+        <% response = HTTParty.get('http://192.168.1.192:1234/bins') %>
+        <% json = JSON.parse(response.body) %>
+        <%= link_to "Demo Update", '/dustbins/1/update', method: "post", class: "nav-link"%>
+        <p> Current Level: <%= (json["fill level"]*100).to_f.round %>% </p>
+
         <br>
         <div class="table-responsive" id="table-panel">
             <h5>Table View</h5>
             <table id="table" data-toggle="table" data-search="true" data-filter-control="true" data-click-to-select="true">
                 <thead>
                     <tr>
-                        <%# <th data-field="select" data-checkbox="true"></th> %>
+                        <th data-field="select" data-checkbox="true"></th>
                         <th data-field="name" data-filter-control="input" data-sortable="true">Name</th>
                         <th data-field="code" data-filter-control="input" data-sortable="true">Code</th>
                         <th data-field="address" data-filter-control="select" data-sortable="true">Address</th>
@@ -48,11 +55,13 @@
                 <tbody>
                     <% @dustbins.each do |d| %>
                     <tr>
-                        <%# <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td> %>
+                        <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
                         <td><%= d.name %></td>
                         <td><%= d.code %></td>
                         <td><%= d.address %></td>
-                        <td><%= d.fill_level.percentage %></td>
+                        <td class="bin-level"><%= d.fill_level.percentage %> 
+
+                        </td>
                         <td><%= time_ago_in_words(d.last_collected) %> ago</td>
                         <td class="bin-lat hidden"><%= d.latitude %></td>
                         <td class="bin-lng hidden"><%= d.longitude %></td>
@@ -76,14 +85,15 @@
             });
         })
 
-        $("#table tbody").on( "click", "tr", function() {
-            console.log('success! ' + $(this).find('.bin-lat').html() + ' and ' + $(this).find('.bin-lng').html())
-            map.flyTo({
-                center: [
-                    $(this).find('.bin-lat').html(), $(this).find('.bin-lng').html()
-                ]
-            });
+        // When table row is clicked, fly to the coordinates on map
+        $("#table tbody").on("click", "tr", function() {
+            map.flyTo({center: [$(this).find('.bin-lat').html(), $(this).find('.bin-lng').html()]});
         });
+
+        // $("#table tbody").on("click", "tr td:first-child", function(e) {
+        //     e.stopPropagation();
+        // });
+
     </script>
 
 </div>

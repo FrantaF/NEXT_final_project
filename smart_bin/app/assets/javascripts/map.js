@@ -1,7 +1,7 @@
     console.log("Script Starts");
-    var defaultCenter = [101.623, 3.135];
-    var truckLocation = [101.625871, 3.138663]; //starting point
-    var depoLocation = [101.625871, 3.138663]; //starting point (purposely doubled)
+    var defaultCenter = [101.6155, 3.135];
+    var truckLocation = [101.619183, 3.135011]; //starting point
+    var depoLocation = [101.619183, 3.135011]; //starting point (purposely doubled)
     // var lastQueryTime = 0;
     var lastAtRestaurant = 0;
     var keepTrack = [];
@@ -18,7 +18,7 @@
       container: 'map', // container id
       style: 'mapbox://styles/mapbox/streets-v9', // stylesheet location
       center: defaultCenter, // starting position
-      zoom: 14 // starting zoom
+      zoom: 14.5 // starting zoom
     });
 
     // For warehouse

@@ -86,15 +86,15 @@ Raspberrypi.create!([
 ])
 
 Dustbin.create!([
-  {name: "Next Academy 1", code: "NEXT0001", address: "Jalan 1/1, Glomac Damansara", last_collected: "2018-09-01 15:00:00", longitude: 3.134760, latitude: 101.629743, fill_level_id: 11, state_id: 2, city_id: 7, area_id: 6, raspberrypi_id: 1},
-  {name: "TTDI Waste Center 1", code: "TTDI0001", address: "Jalan 1/1, Taman Tun Dr. Ismail", last_collected: "2018-09-01 15:00:00", longitude: 3.133712, latitude: 101.629692, fill_level_id: 9, state_id: 2, city_id: 7, area_id: 1, raspberrypi_id: 2},
-  {name: "TTDI Waste Center 2", code: "TTDI0002", address: "Jalan 1/2, Taman Tun Dr. Ismail", last_collected: "2018-09-01 15:00:00", longitude: 3.132612, latitude: 101.628571, fill_level_id: 8, state_id: 2, city_id: 7, area_id: 1, raspberrypi_id: 3},
-  {name: "TTDI Waste Center 3", code: "TTDI0003", address: "Jalan 1/3, Taman Tun Dr. Ismail", last_collected: "2018-09-01 15:00:00", longitude: 3.133309, latitude: 101.626877, fill_level_id: 7, state_id: 2, city_id: 7, area_id: 1, raspberrypi_id: 4},
-  {name: "TTDI Waste Center 4", code: "TTDI0004", address: "Jalan 1/4, Taman Tun Dr. Ismail", last_collected: "2018-09-01 15:00:00", longitude: 3.135937, latitude: 101.624967, fill_level_id: 5, state_id: 2, city_id: 7, area_id: 1, raspberrypi_id: 5},
-  {name: "PJ Waste Center 1", code: "PJ0001", address: "Jalan 1/2, Petaling Jaya", last_collected: "2018-09-01 15:00:00", longitude: 3.124703, latitude: 101.610388, fill_level_id: 2, state_id: 3, city_id: 1, area_id: 1, raspberrypi_id: 6},
-  {name: "PJ Waste Center 2", code: "PJ0002", address: "Jalan 1/3, Petaling Jaya", last_collected: "2018-09-01 15:00:00", longitude: 3.117143, latitude: 101.612760, fill_level_id: 5, state_id: 2, city_id: 1, area_id: 1, raspberrypi_id: 7},
-  {name: "PJ Waste Center 3", code: "PJ0003", address: "Jalan 1/4, Petaling Jaya", last_collected: "2018-09-01 15:00:00", longitude: 3.115297, latitude: 101.606691, fill_level_id: 10, state_id: 1, city_id: 1, area_id: 1, raspberrypi_id: 8}
-])
+  {name: "Next Academy 1", code: "TTDI0002", address: "AG-7, Glomac Damansara, Jalan Damansara", last_collected: "2018-09-01 15:00:00", longitude: 3.134760, latitude: 101.629743, fill_level_id: 11, state_id: 2, city_id: 7, area_id: 6, raspberrypi_id: 1},
+  {name: "Damansara Utama Waste Center", code: "DAM0002", address: "39, Jalan SS 21/5", last_collected: "2018-08-30 15:00:00", longitude: 3.135, latitude: 101.6155, fill_level_id: 9, state_id: 2, city_id: 7, area_id: 1, raspberrypi_id: 2},
+  {name: "Atria Waste Center", code: "PJ0001", address: "Atria, Jalan SS 22/23", last_collected: "2018-09-01 15:00:00", longitude: 3.128715, latitude: 101.616833, fill_level_id: 8, state_id: 2, city_id: 7, area_id: 1, raspberrypi_id: 3},
+  {name: "TTDI Waste Center", code: "TTDI0001", address: "Jalan SS 20/11, Damansara Kim", last_collected: "2018-09-01 15:00:00", longitude: 3.134477, latitude: 101.625671, fill_level_id: 8, state_id: 2, city_id: 7, area_id: 1, raspberrypi_id: 4},
+  {name: "Starling Mall Waste Center", code: "DAM0001", address: "Starling Mall, Jalan SS 21/39", last_collected: "2018-09-01 15:00:00", longitude: 3.136612, latitude: 101.622014, fill_level_id: 8, state_id: 2, city_id: 7, area_id: 1, raspberrypi_id: 5},
+  {name: "Pelangi Utama Waster Center", code: "BU0001", address: "1, Jalan Masjid", last_collected: "2018-09-10 15:00:00", longitude: 3.142253, latitude: 101.615955, fill_level_id: 2, state_id: 3, city_id: 1, area_id: 1, raspberrypi_id: 6},
+  {name: "Centre Point Waste Center", code: "BU0002", address: "3, Lebuh Bandar Utama", last_collected: "2018-08-21 15:00:00", longitude: 3.138868, latitude: 101.610269, fill_level_id: 8, state_id: 2, city_id: 1, area_id: 1, raspberrypi_id: 7},
+  {name: "Ara Damansara Waste Center", code: "PJ0002", address: "1, Jalan Cempaka", last_collected: "2018-08-15 15:00:00", longitude: 3.129226, latitude: 101.611866, fill_level_id: 10, state_id: 1, city_id: 1, area_id: 1, raspberrypi_id: 8}
+ ])
 
 UserDustbinAssignment.create!([
   {user_id: 3, dustbin_id: 1},
