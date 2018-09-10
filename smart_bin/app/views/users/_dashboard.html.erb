@@ -1,14 +1,20 @@
 <div class="h-100 container" style="background:whitesmoke;">
-
-        <div class="row" id="map-panel">
-            <div class="col-md-12" id="work-panel">
-                <h5><%= current_user.username %></h5>
-                <p>Summary: <i class="fa fa-trash-alt" style="color:red;"></i> <%= @dustbins.where({ :fill_level_id => 9..11 }).count %> <i class="fa fa-trash-alt" style="color:orange;"></i> <%= @dustbins.where({ :fill_level_id => 7..8 }).count %> <i class="fa fa-trash-alt" style="color:green;"></i> <%= @dustbins.where({ :fill_level_id => 5..6 }).count %></p>
+        <br>
+        <div id="map-panel">
+            <h5>Map View</h5>
+            <div class="col-md-12 w-100" id="work-panel">
+                <div>Dustbins Summary: 
+                    <i class="far fa-trash-alt full"></i> <%= @dustbins.where({ :fill_level => 10..11 }).count %> 
+                    <i class="far fa-trash-alt critical"></i> <%= @dustbins.where({ :fill_level_id => 8..9 }).count %> 
+                    <i class="far fa-trash-alt half"></i> <%= @dustbins.where({ :fill_level_id => 6..7 }).count %>
+                    <i class="far fa-trash-alt some"></i> <%= @dustbins.where({ :fill_level_id => 4..5 }).count %>
+                    <i class="far fa-trash-alt less"></i> <%= @dustbins.where({ :fill_level_id => 2..3 }).count %>
+                    <i class="far fa-trash-alt empty"></i> <%= @dustbins.where({ :fill_level_id => 1 }).count %>
+                </div>
                 <div id="summary"></div>
-                <div id='map' class='container map-button' style="border:1px solid black;">
+                <div id='map' class='map-button'>
                   <button id='simulate'>Simulate Journey</button>
                 </div>
-                <%= stylesheet_link_tag 'map', 'data-turbolinks-track': 'reload' %>
                 <%= javascript_include_tag 'map', 'data-turbolinks-track': 'reload' %>
             </div>
         </div>
@@ -20,18 +26,20 @@
                 <option value="selected">Export Selected</option>
             </select>
         </div> %>
-
-        <div class="row w-100" id="table-panel">
-            <table id="table" data-toggle="table" data-search="true" data-filter-control="true" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+        <br>
+        <div class="table-responsive" id="table-panel">
+            <h5>Table View</h5>
+            <table id="table" data-toggle="table" data-search="true" data-filter-control="true" data-click-to-select="true">
                 <thead>
                     <tr>
+                        <%# <th data-field="select" data-checkbox="true"></th> %>
                         <th data-field="name" data-filter-control="input" data-sortable="true">Name</th>
                         <th data-field="code" data-filter-control="input" data-sortable="true">Code</th>
                         <th data-field="address" data-filter-control="select" data-sortable="true">Address</th>
                         <th data-field="fill_level" data-filter-control="select" data-sortable="true">Fill Level</th>
                         <th data-field="last_collected" data-filter-control="select" data-sortable="true">Last Collected</th>
-                        <th data-field="longitude" data-filter-control="select" data-sortable="true">Longitude</th>
                         <th data-field="latitude" data-filter-control="select" data-sortable="true">Latitude</th>
+                        <th data-field="longitude" data-filter-control="select" data-sortable="true">Longitude</th>
                         <th data-field="area" data-filter-control="select" data-sortable="true">Area</th>
                         <th data-field="city" data-filter-control="select" data-sortable="true">City</th>
                         <th data-field="state" data-filter-control="select" data-sortable="true">State</th>
@@ -40,13 +48,14 @@
                 <tbody>
                     <% @dustbins.each do |d| %>
                     <tr>
+                        <%# <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td> %>
                         <td><%= d.name %></td>
                         <td><%= d.code %></td>
                         <td><%= d.address %></td>
                         <td><%= d.fill_level.percentage %></td>
-                        <td><%= d.last_collected %></td>
-                        <td class="bin-lng"><%= d.longitude %></td>
-                        <td class="bin-lat"><%= d.latitude %></td>
+                        <td><%= time_ago_in_words(d.last_collected) %> ago</td>
+                        <td class="bin-lat hidden"><%= d.latitude %></td>
+                        <td class="bin-lng hidden"><%= d.longitude %></td>
                         <td><%= d.area.name %></td>
                         <td><%= d.city.name %></td>
                         <td><%= d.state.name %></td>

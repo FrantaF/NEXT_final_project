@@ -62,12 +62,16 @@
 }
 
 
+#map {
+  box-shadow: 2px 2px 3px grey;
+}
+
+
 .mapboxgl-popup {
-  max-width: 200px;
+  max-width: 150px;
 }
 
 .mapboxgl-popup-content {
-  text-align: center;
   font-family: 'Open Sans', sans-serif;
 }
 
@@ -93,4 +97,6 @@ button#simulate{
   border-radius: 3px;
 }
 
-.mapboxgl-canvas { position:relative !important; }
+#work-panel {
+  padding-right: 30px;
+}

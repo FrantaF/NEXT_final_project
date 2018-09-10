@@ -41,7 +41,7 @@
     };
 
   
-    
+
     map.on('load', function() {
 
       // For the truck marker
@@ -163,13 +163,13 @@
       });
       // On load, show location of dustbins and project route immediately.
       // Will receive input from backend on which bins.
-      var geojson;
+      
 
       $.ajax({
         dataType: 'text',
         url: 'users.json',
         success: function(data) {
-          
+          var geojson;
           var activebins = new Array();
           geojson = $.parseJSON(data);
           
