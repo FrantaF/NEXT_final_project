@@ -185,3 +185,20 @@
 
 </script>
 
+
+<div class="col-md-3" id="chart" style="background:whitesmoke;">
+            <p>Area Summary</p>
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action"><%= @dustbins.first.area.name %>
+                    <span class="badge badge-primary badge-pill"><%= @dustbins.first.area.dustbins.where({ :fill_level_id => 9..11 }).count %></span>
+                </a>
+            </div>
+            <br>
+            <p>Dustbin Summary</p>
+            <div class="list-group">
+                <% @dustbins.each do |d| %>
+                <a href="#" class="list-group-item list-group-item-action"><%= d.code %></a>
+                <% end %>
+            </div>
+        </div>
+
