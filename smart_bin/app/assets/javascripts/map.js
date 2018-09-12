@@ -43,7 +43,6 @@
   
 
     map.on('load', function() {
-
       // For the truck marker
       var marker = document.createElement('div');
       marker.classList = 'truck';
@@ -163,7 +162,6 @@
       });
       // On load, show location of dustbins and project route immediately.
       // Will receive input from backend on which bins.
-      
 
       $.ajax({
         dataType: 'text',
@@ -187,7 +185,7 @@
           for (x = 0; x < i; x++){
             newDropoff(activebins[x]);
           }
-          updatepickups(pickups);
+          //updatepickups(pickups);
           // Make a request to the Optimization API'
           callAjax(activebins)
 
@@ -269,6 +267,8 @@
         document.getElementById('summary').innerHTML = "Your journey today will take " + ((data.trips[0].duration)/60).toFixed(0) + " minutes for " + ((data.trips[0].distance)/1000).toFixed(2) + " km to collect " + activebins.length + " bins!"
         });
       }
+
+      
       // Here you'll specify all the parameters necessary for requesting a response from the Optimization API
       function assembleQueryURL() {
         // Store the location of the truck in a variable called coordinates
@@ -309,8 +309,6 @@
 
       // This functions 1)create an object with new coordinate, 2)push it to pickups array
       function newDropoff(coords) {
-        // Store the clicked point as a new GeoJSON feature with
-        // two properties: `orderTime` and `key`
         var pt = turf.point(
           [coords.lng, coords.lat],
           {
@@ -352,7 +350,10 @@
         return routeGeoJSON;
       }
 
-
+      function resetDropoff() {
+        pickups = turf.featureCollection([]);
+        pointHopper = {};
+      }
       
       
 

@@ -113,7 +113,7 @@
   }
   
   #mainNav {
-    background-color: #25CCF7;
+    background-color: #212529;
   }
   
   #mainNav .navbar-toggler {
@@ -128,8 +128,8 @@
   }
   
   #mainNav .navbar-brand {
-    color: #EAB543;
-    font-family: 'Kaushan Script', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    color: whitesmoke;
+    font-family: 'Helvetica Neue', Roboto, 'Noto Color Emoji', 'Apple Color Emoji', Arial, sans-serif, 'Segoe UI Emoji', 'Segoe UI Symbol';
     text-shadow: 2px 2px 4px black;
   }
   
@@ -171,7 +171,7 @@
     #mainNav.navbar-shrink {
       padding-top: 0;
       padding-bottom: 0;
-      background-color: #25CCF7;
+      background-color: #212529;
 
     }
     #mainNav.navbar-shrink .navbar-brand {
@@ -702,3 +702,18 @@
     background-color: #fed136;
   }
   
+  header.masthead {
+    text-align: center;
+    color: white;
+    background-image: url('http://homefinder.com.my/wp-content/uploads/2016/08/2016062314002883_Kuala-Lumpur-City-Center-e1476177186323.jpg');
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: center center;
+    background-size: cover;
+  }
+  .intro-heading, .intro-lead-in, #banner {
+    text-shadow: 0 0 10px blue;
+  }
+  #navbarResponsive .nav-link {
+    text-shadow: 0 0 5px black;
+  }

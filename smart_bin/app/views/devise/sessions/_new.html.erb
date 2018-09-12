@@ -1,0 +1,19 @@
+<%= form_for(:user, url: "/login") do |f| %>
+
+  <div class="field">
+    <%= f.label :login, "Username" %><br />
+    <%= f.text_field :login, autofocus: true, class: "form-control", placeholder: "" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %><br />
+    <%= f.password_field :password, autocomplete: "current-password", class: "form-control", placeholder: "" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Log in" %>
+  </div>
+
+<% end %>  
+
+

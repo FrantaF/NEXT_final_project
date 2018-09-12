@@ -93,7 +93,9 @@ Dustbin.create!([
   {name: "Starling Mall Waste Center", code: "DAM0001", address: "Starling Mall, Jalan SS 21/39", last_collected: "2018-09-01 15:00:00", longitude: 3.136612, latitude: 101.622014, fill_level_id: 8, state_id: 2, city_id: 7, area_id: 1, raspberrypi_id: 5},
   {name: "Pelangi Utama Waster Center", code: "BU0001", address: "1, Jalan Masjid", last_collected: "2018-09-10 15:00:00", longitude: 3.142253, latitude: 101.615955, fill_level_id: 2, state_id: 3, city_id: 1, area_id: 1, raspberrypi_id: 6},
   {name: "Centre Point Waste Center", code: "BU0002", address: "3, Lebuh Bandar Utama", last_collected: "2018-08-21 15:00:00", longitude: 3.138868, latitude: 101.610269, fill_level_id: 8, state_id: 2, city_id: 1, area_id: 1, raspberrypi_id: 7},
-  {name: "Ara Damansara Waste Center", code: "PJ0002", address: "1, Jalan Cempaka", last_collected: "2018-08-15 15:00:00", longitude: 3.129226, latitude: 101.611866, fill_level_id: 10, state_id: 1, city_id: 1, area_id: 1, raspberrypi_id: 8}
+  {name: "Ara Damansara Waste Center", code: "PJ1302", address: "1, Jalan Cempaka", last_collected: "2018-08-15 15:00:00", longitude: 3.129226, latitude: 101.611866, fill_level_id: 10, state_id: 1, city_id: 1, area_id: 1, raspberrypi_id: 8},
+  {name: "Section 22 Waster Center", code: "PJ1002", address: "Jalan SS22/14", last_collected: "2018-09-10 12:00:00", longitude: 3.131065, latitude: 101.620579, fill_level_id: 4, state_id: 1, city_id: 1, area_id: 1, raspberrypi_id: 9},
+  {name: "TTDI Market", code: "TTDI1302", address: "Pasar Awam Besar", last_collected: "2018-09-12 18:00:00", longitude: 3.139064, latitude: 101.628721, fill_level_id: 6, state_id: 1, city_id: 1, area_id: 1, raspberrypi_id: 10}
  ])
 
 UserDustbinAssignment.create!([

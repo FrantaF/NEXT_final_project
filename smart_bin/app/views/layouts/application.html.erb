@@ -5,19 +5,14 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <%= favicon_link_tag 'favicon_raspberry.png' %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <% if controller_name == "braintree" %>
-      <%= javascript_include_tag "braintree", 'data-turbolinks-track': true %>
-    <% end %>
-    <% if controller_name == "static" %>
-      <%= javascript_include_tag "static", 'data-turbolinks-track': true %>
-    <% end %>
-    <% if controller_name == "users" %>
-      <script src='https://api.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.js'></script>
-      <link href='https://api.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.css' rel='stylesheet' />
-      <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
-    <% end %>
+    
+    <!-- Load the Client component. -->
+    <script src="https://js.braintreegateway.com/web/3.6.3/js/client.min.js"></script>
+    <!-- Load the Hosted Fields component. -->
+    <script src="https://js.braintreegateway.com/web/3.6.3/js/hosted-fields.min.js"></script>
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
@@ -28,14 +23,18 @@
   </head>
 
   <body id="page-top">
-
-    <%= render partial: "layouts/navbar" %>
+    <% if user_signed_in? %>
+      <%= render partial: "users/navbar" %>
+    <% else %>
+      <%= render partial: "static/navbar" %>
+    <% end %>
 
     <%= yield %>
 
+    <%# <%= render template: "static/modal" %>
+
   </body>
 
-  
   <%= render partial: "layouts/footer" %>
 
 </html>

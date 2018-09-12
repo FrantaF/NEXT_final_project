@@ -3,15 +3,18 @@
     position: relative;
     background: url('http://homefinder.com.my/wp-content/uploads/2016/08/2016062314002883_Kuala-Lumpur-City-Center-e1476177186323.jpg') no-repeat center center fixed;
     background-size: cover;
+    /* width: 100%; */
+    /* height: 100%; */
     min-width: 500px;
     min-height: 200px;
+    /* margin: 0; */
     color: #fff;
     font-family: 'Montserrat';
   }
 </style>
 
-<div class="h-75 container" id="login-container">
-    <div class="h-75 row d-flex align-items-center">
+<div class="h-100 container" id="login-container">
+    <div class="h-100 row d-flex align-items-center">
         <div class="col-md-8" id="banner">
             <h1>Smart City</h1>
             <h2>Smarter Waste Management</h2>
@@ -44,22 +47,3 @@
         </div>
     </div>
 </div>
-
-<%#= form_for :session, url: "", id: "session-form", :html => {:class => "login-form"} do |form| %> 
-
-<!-- <div id="login-box" class="login-box">
-
- <div class="form-group">  
-  <input class="form-control input-sm" type="text" placeholder="Client Credentials" style='text-align: center;' name="session[email]">
-</div>
-
-<div class="form-group">  
-  <input class="form-control" type="password" placeholder="Password" style='text-align: center;' name="session[password]">
-</div>                    
-
-<div class="form-group">   -->
-  <%#= button_to 'Login', "/users/dashboard" , method: :post, :class => 'btn btn-success btn-block' %>
-
-
-
-

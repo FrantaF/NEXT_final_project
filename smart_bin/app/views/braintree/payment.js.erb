@@ -1,0 +1,8 @@
+$("#modal-window").find(".modal-body").html("<%= j (render 'payment') %>");
+$("#modal-window").find(".modal-title").html("Subscribe");
+//If need this button to be able to submit a form id ("form", "(element_id)")
+//$("#submit-form").attr("form", "new_user");
+$("#submit-form").html("Submit");
+$("#submit-form").hide();
+//$("#submit-form").show();
+$("#modal-window").modal();

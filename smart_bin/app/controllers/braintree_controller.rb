@@ -1,5 +1,5 @@
 class BraintreeController < ApplicationController
-  
+  respond_to :html, :js
 
  def payment        
     #only make this page accessable to the current user

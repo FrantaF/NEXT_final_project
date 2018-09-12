@@ -1,94 +1,101 @@
-<div class="h-100 container" style="background:whitesmoke;">
-        <br>
-        <div id="map-panel">
-            <h5>Map View</h5>
-            <div class="col-md-12 w-100" id="work-panel">
-                <div>Dustbins Summary: 
-                    <i class="far fa-trash-alt full"></i> <%= @dustbins.where({ :fill_level => 10..11 }).count %> 
-                    <i class="far fa-trash-alt critical"></i> <%= @dustbins.where({ :fill_level_id => 8..9 }).count %> 
-                    <i class="far fa-trash-alt half"></i> <%= @dustbins.where({ :fill_level_id => 6..7 }).count %>
-                    <i class="far fa-trash-alt some"></i> <%= @dustbins.where({ :fill_level_id => 4..5 }).count %>
-                    <i class="far fa-trash-alt less"></i> <%= @dustbins.where({ :fill_level_id => 2..3 }).count %>
-                    <i class="far fa-trash-alt empty"></i> <%= @dustbins.where({ :fill_level_id => 1 }).count %>
-                </div>
-                <div id="summary"></div>
-                <div id='map' class='map-button'>
-                  <button id='simulate'>Simulate Journey</button>
-                </div>
-                <%= javascript_include_tag 'map', 'data-turbolinks-track': 'reload' %>
+<script src='https://api.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.css' rel='stylesheet' />
+<script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
+
+<div class-"container" id="map-panel">
+    <h5 class="text-center" style="font-family:Montserrat;text-shadow: 2px 2px 3px grey;">Map View</h5>
+    <div id='map' class='map-button'>
+        <div id="simulate">
+            <button>Simulate Journey</button>
+            <div id="summary"></div>
+            <div>Dustbins Summary: 
+                <i class="far fa-trash-alt full"></i> <%= @dustbins.where({ :fill_level => 10..11 }).count %> 
+                <i class="far fa-trash-alt critical"></i> <%= @dustbins.where({ :fill_level_id => 8..9 }).count %> 
+                <i class="far fa-trash-alt half"></i> <%= @dustbins.where({ :fill_level_id => 6..7 }).count %>
+                <i class="far fa-trash-alt some"></i> <%= @dustbins.where({ :fill_level_id => 4..5 }).count %>
+                <i class="far fa-trash-alt less"></i> <%= @dustbins.where({ :fill_level_id => 2..3 }).count %>
+                <i class="far fa-trash-alt empty"></i> <%= @dustbins.where({ :fill_level_id => 1 }).count %>
             </div>
-            <button id='update-dropoff'>Update Dropoff</button>
         </div>
+    </div>
+    <%= javascript_include_tag 'map', 'data-turbolinks-track': 'reload' %>
+    
+    <%= link_to "Demo Update Next Academy", '/dustbins/1/update', method: "post", class: "nav-link"%>
+    <%= link_to "Pickup Points Update", '#', id: "update-pickup", class: "nav-link"%>
 
-        <%# <div id="toolbar">
-            <select class="form-control">
-                <option value="">Export Basic</option>
-                <option value="all">Export All</option>
-                <option value="selected">Export Selected</option>
-            </select>
-        </div> %>
+</div>
 
-        <%= link_to "Demo Update", '/dustbins/1/update', method: "post", class: "nav-link"%>
+<tr>
 
+<div class="container">
+
+    <div class="table-responsive" id="table-panel">
+        <h5 class="text-center" style="font-family:Montserrat;text-shadow: 2px 2px 3px grey;">Table View</h5>
+        <table id="table" data-toggle="table" data-search="true" data-filter-control="true" data-click-to-select="true">
+            <thead>
+                <tr>
+                    <th data-field="select" data-checkbox="true"></th>
+                    <th data-field="name" data-filter-control="input" data-sortable="true">Name</th>
+                    <th data-field="code" data-filter-control="input" data-sortable="true">Code</th>
+                    <th data-field="address" data-filter-control="select" data-sortable="true">Address</th>
+                    <th data-field="fill_level" data-filter-control="select" data-sortable="true">Fill Level</th>
+                    <th data-field="last_collected" data-filter-control="select" data-sortable="true">Last Collected</th>
+                    <th data-field="latitude" data-filter-control="select" data-sortable="true">Latitude</th>
+                    <th data-field="longitude" data-filter-control="select" data-sortable="true">Longitude</th>
+                    <th data-field="area" data-filter-control="select" data-sortable="true">Area</th>
+                    <th data-field="city" data-filter-control="select" data-sortable="true">City</th>
+                    <th data-field="state" data-filter-control="select" data-sortable="true">State</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @dustbins.each do |d| %>
+                <tr>
+                    <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
+                    <td class="bin-name"><%= d.name %></td>
+                    <td><%= d.code %></td>
+                    <td><%= d.address %></td>
+                    <td class="bin-level"><%= d.fill_level.percentage %></td>
+                    <td><%= time_ago_in_words(d.last_collected) %> ago</td>
+                    <td class="bin-lat hidden"><%= d.latitude %></td>
+                    <td class="bin-lng hidden"><%= d.longitude %></td>
+                    <td><%= d.area.name %></td>
+                    <td><%= d.city.name %></td>
+                    <td><%= d.state.name %></td>
+                </tr>
+                <% end %>
+            </tbody>
+        </table>
         <br>
-        <div class="table-responsive" id="table-panel">
-            <h5>Table View</h5>
-            <table id="table" data-toggle="table" data-search="true" data-filter-control="true" data-click-to-select="true">
-                <thead>
-                    <tr>
-                        <th data-field="select" data-checkbox="true"></th>
-                        <th data-field="name" data-filter-control="input" data-sortable="true">Name</th>
-                        <th data-field="code" data-filter-control="input" data-sortable="true">Code</th>
-                        <th data-field="address" data-filter-control="select" data-sortable="true">Address</th>
-                        <th data-field="fill_level" data-filter-control="select" data-sortable="true">Fill Level</th>
-                        <th data-field="last_collected" data-filter-control="select" data-sortable="true">Last Collected</th>
-                        <th data-field="latitude" data-filter-control="select" data-sortable="true">Latitude</th>
-                        <th data-field="longitude" data-filter-control="select" data-sortable="true">Longitude</th>
-                        <th data-field="area" data-filter-control="select" data-sortable="true">Area</th>
-                        <th data-field="city" data-filter-control="select" data-sortable="true">City</th>
-                        <th data-field="state" data-filter-control="select" data-sortable="true">State</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% @dustbins.each do |d| %>
-                    <tr>
-                        <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
-                        <td><%= d.name %></td>
-                        <td><%= d.code %></td>
-                        <td><%= d.address %></td>
-                        <td class="bin-level"><%= d.fill_level.percentage %></td>
-                        <td><%= time_ago_in_words(d.last_collected) %> ago</td>
-                        <td class="bin-lat hidden"><%= d.latitude %></td>
-                        <td class="bin-lng hidden"><%= d.longitude %></td>
-                        <td><%= d.area.name %></td>
-                        <td><%= d.city.name %></td>
-                        <td><%= d.state.name %></td>
-                    </tr>
-                    <% end %>
-                </tbody>
-            </table>
-            <br>
-        </div>
+    </div>
 
     <script>
-        var $table = $('#table');
-        $(function () {
-            $('#toolbar').find('select').change(function () {
-                $table.bootstrapTable('refreshOptions', {
-                xportDataType: $(this).val()
-                    });
-            });
-        })
-
         // When table row is clicked, fly to the coordinates on map
         $("#table tbody").on("click", "tr", function() {
             map.flyTo({center: [$(this).find('.bin-lat').html(), $(this).find('.bin-lng').html()]});
+            console.log('Fly to Location!');
         });
 
-        // $("#table tbody").on("click", "tr td:first-child", function(e) {
-        //     e.stopPropagation();
-        // });
+        // When Pickuo Point Update is clicked, Update the map
+        $("#update-pickup").on("click", function(e) {
+            e.preventDefault();
+            var table = document.getElementById('table');
+            var rowLength = table.rows.length;
+            var activebins = new Array();
 
+            resetDropoff();
+            
+            for(var i=0; i<rowLength-1; i+=1){
+                if ( i >= 10 ) { return; }
+                var row = table.rows[i];
+                if(row.className == "selected"){
+                    activebins[i-1] = {lng: parseFloat(row.cells[6].innerHTML), lat: parseFloat(row.cells[7].innerHTML)};
+                    newDropoff({lng: parseFloat(row.cells[6].innerHTML), lat: parseFloat(row.cells[7].innerHTML)});
+                }
+            }
+
+            callAjax(activebins);
+            
+        });
     </script>
 
 </div>

@@ -1,57 +1,52 @@
+<%= javascript_include_tag "static", 'data-turbolinks-track': true %>
 <!-- Header -->
     <style>
-        header.masthead {
-        text-align: center;
-        color: white;
-        background-image: url('http://homefinder.com.my/wp-content/uploads/2016/08/2016062314002883_Kuala-Lumpur-City-Center-e1476177186323.jpg');
-        background-repeat: no-repeat;
-        background-attachment: scroll;
-        background-position: center center;
-        background-size: cover;
-      }
+      
     </style>
     
     <header class="masthead">
       <div class="container">
         <div class="intro-text">
           <br>
-          <div class="intro-heading text-uppercase">We are awecome company!</h2>
-          <div class="intro-lead-in">These are some of the cool things we do</div>
+          <div class="intro-heading text-uppercase" style:"font-color:black;">BinBerries</h2>
+          <p></p>
+          <div class="intro-lead-in" style:"font-color:black;">Our project is based on concept of IoT and Smart City.</div>
         </div>
       </div>
     </header>
-
+    
     <!-- Services -->
     <section id="solutions" style="background-color:whitesmoke;">
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
             <h2 class="section-heading text-uppercase">Solutions</h2>
-            <h3 class="section-subheading text-muted">Our company offer End to End solutions.</h3>
+            <h3 class="section-subheading text-muted">Our company offers the following End to End solutions.</h3>
           </div>
         </div>
         <div class="row text-center">
-          <div class="col-md-4">
-            <%= image_tag 'raspberry_pi.jpg', class: "mx-auto d-block img-fluid homepage-pic", style: "width:250px;height200px;" %>
+
+          <div class="col-md-4">          
+            <%= image_tag 'raspberry_pi.jpg', class: "mx-auto d-block img-fluid homepage-pic", style: "width:250px; height:200px;" %>
             <h4 class="service-heading">IoT Devices</h4>
-            <p class="text-muted">SmartBin's IoT level sensors are the world’s smartest and most widely deployed. Our suite of sensors are compact, robust, wireless, and proven in many container types.</p>
-            <%= link_to "Tell Me More", "#" %> 
+            <p class="text-muted">BinBerrie's IoT level sensors are the world’s smartest and most widely deployed. Our suite of sensors are compact, robust, wireless, and proven in many container types.</p>            
           </div>
+
           <div class="col-md-4">
-            <%= image_tag 'monitoring.jpg', class: "mx-auto d-block img-fluid homepage-pic", style: "width:250px;height200px;" %>
+            <%= image_tag 'analytics.png', class: "mx-auto d-block img-fluid homepage-pic", style: "width:250px; height:200px;" %>
             <h4 class="service-heading">Route Tracking</h4>
-            <p class="text-muted">Intelligent Monitoring is the IoT solution that is revolutionizing how Smart Cities and private companies service their container assets.</p>
-            <%= link_to "Tell Me More", "#" %> 
+            <p class="text-muted">Intelligent Monitoring is the IoT solution that is revolutionizing how Smart Cities and private companies service their container assets.</p>            
           </div>
+
           <div class="col-md-4">
-            <%= image_tag 'analytics.png', class: "mx-auto d-block img-fluid homepage-pic", style: "width250px;height200px;" %>
+            <%= image_tag 'monitoring.jpg', class: "mx-auto d-block img-fluid homepage-pic", style: "width250px; height:200px;" %>
             <h4 class="service-heading">Statistics</h4>
-            <p class="text-muted">Monitor your containers and plan optimized routes from anywhere. SmartBin Live is the IoT game changer for collectors and distributors around the world.</p>
-            <%= link_to "Tell Me More", "#" %> 
+            <p class="text-muted">Monitor your containers and plan optimized routes from anywhere. BinBerrie's Live is the IoT game changer for collectors and distributors around the world.</p>            
           </div>
+
         </div>
       </div>
-    </section><tr>
+    </section>
 
     <!-- Portfolio Grid -->
     <section id="subscriptions" style="background-color:white;">
@@ -79,8 +74,7 @@
                         <li class="list-group-item"><strong>Unlimited</strong> Email Accounts</li>
                         <li class="list-group-item"><strong>10GB</strong> Disk Space</li>
                         <li class="list-group-item"><strong>100GB</strong> Monthly Bandwidth</li>
-                        <li class="list-group-item"><%= link_to 'Subscribe', braintree_payment_path, :class => 'btn btn-primary' %>
-                        </li>
+                        <li class="list-group-item"><%= link_to 'Subscribe', braintree_payment_path, {class: 'btn btn-primary', :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %></li>
                     </ul>
                 </div>
             </div>
@@ -99,8 +93,7 @@
                         <li class="list-group-item"><strong>Unlimited</strong> Email Accounts</li>
                         <li class="list-group-item"><strong>1000GB</strong> Disk Space</li>
                         <li class="list-group-item"><strong>10000GB</strong> Monthly Bandwidth</li>
-                        <li class="list-group-item"><%= link_to 'Subscribe', braintree_payment_path, :class => 'btn btn-primary' %>
-                        </li>
+                        <li class="list-group-item"><%= link_to 'Subscribe', braintree_payment_path, {class: 'btn btn-primary', :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %></li>
                     </ul>
                 </div>
             </div>
@@ -119,8 +112,7 @@
                         <li class="list-group-item"><strong>Unlimited</strong> Email Accounts</li>
                         <li class="list-group-item"><strong>10000GB</strong> Disk Space</li>
                         <li class="list-group-item"><strong>Unlimited</strong> Monthly Bandwidth</li>
-                        <li class="list-group-item"><%= link_to 'Subscribe', braintree_payment_path, :class => 'btn btn-primary' %>
-                        </li>
+                        <li class="list-group-item"><%= link_to 'Subscribe', braintree_payment_path, {class: 'btn btn-primary', :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %></li>
                     </ul>
                 </div>
             </div>
@@ -133,8 +125,8 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase">Our Amazing Team</h2>
-            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+            <h2 class="section-heading text-uppercase">The Team</h2>
+            <h3 class="section-subheading text-muted">Aspired to bring changes.</h3>
           </div>
         </div>
         <div class="row">
@@ -142,78 +134,24 @@
             <div class="team-member">
               <%= image_tag 'profile-2.png', class: "mx-auto rounded-circle" %>
               <h4>Franta</h4>
-              <p class="text-muted">Lead Designer</p>
-              <ul class="list-inline social-buttons">
-                <li class="list-inline-item">
-                  <a href="#">
-                    <i class="fab fa-twitter"></i>
-                  </a>
-                </li>
-                <li class="list-inline-item">
-                  <a href="#">
-                    <i class="fab fa-facebook-f"></i>
-                  </a>
-                </li>
-                <li class="list-inline-item">
-                  <a href="#">
-                    <i class="fab fa-linkedin-in"></i>
-                  </a>
-                </li>
-              </ul>
             </div>
           </div>
           <div class="col-sm-4">
             <div class="team-member">
               <%= image_tag 'profile-3.png', class: "mx-auto rounded-circle" %>
               <h4>Ezlan</h4>
-              <p class="text-muted">Lead Marketer</p>
-              <ul class="list-inline social-buttons">
-                <li class="list-inline-item">
-                  <a href="#">
-                    <i class="fab fa-twitter"></i>
-                  </a>
-                </li>
-                <li class="list-inline-item">
-                  <a href="#">
-                    <i class="fab fa-facebook-f"></i>
-                  </a>
-                </li>
-                <li class="list-inline-item">
-                  <a href="#">
-                    <i class="fab fa-linkedin-in"></i>
-                  </a>
-                </li>
-              </ul>
             </div>
           </div>
           <div class="col-sm-4">
             <div class="team-member">
               <%= image_tag 'profile-4.png', class: "mx-auto rounded-circle" %>
               <h4>Shin</h4>
-              <p class="text-muted">Lead Developer</p>
-              <ul class="list-inline social-buttons">
-                <li class="list-inline-item">
-                  <a href="#">
-                    <i class="fab fa-twitter"></i>
-                  </a>
-                </li>
-                <li class="list-inline-item">
-                  <a href="#">
-                    <i class="fab fa-facebook-f"></i>
-                  </a>
-                </li>
-                <li class="list-inline-item">
-                  <a href="#">
-                    <i class="fab fa-linkedin-in"></i>
-                  </a>
-                </li>
-              </ul>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-lg-8 mx-auto text-center">
-            <p class="large text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>
+            <p class="large text-muted">- Make things possible -</p>
           </div>
         </div>
       </div>
@@ -225,7 +163,7 @@
         <div class="row">
           <div class="col-lg-12 text-center">
             <h2 class="section-heading text-uppercase">Contact Us</h2>
-            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+            <h3 class="section-subheading text-muted">Send us a message and we will get to you soon.</h3>
           </div>
         </div>
         <div class="row">
