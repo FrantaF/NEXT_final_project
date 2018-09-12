@@ -10,6 +10,5 @@ class Dustbin < ApplicationRecord
     #User to Dustbin Assignments
     has_many :dustbin_stats
     #Raspberry Pi Connection
-    has_one :raspberrypi
 
 end
