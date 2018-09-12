@@ -6,7 +6,7 @@
     <h5 class="text-center" style="font-family:Montserrat;text-shadow: 2px 2px 3px grey;">Map View</h5>
     <div id='map' class='map-button'>
         <div id="simulate">
-            <button>Simulate Journey</button>
+            <button id='sim-journey'><i class="fas fa-car"></i> Simulate Journey</button>
             <div id="summary"></div>
             <div>Dustbins Summary: 
                 <i class="far fa-trash-alt full"></i> <%= @dustbins.where({ :fill_level => 10..11 }).count %> 
@@ -20,12 +20,10 @@
     </div>
     <%= javascript_include_tag 'map', 'data-turbolinks-track': 'reload' %>
     
-    <%= link_to "Demo Update Next Academy", '/dustbins/1/update', method: "post", class: "nav-link"%>
-    <%= link_to "Pickup Points Update", '#', id: "update-pickup", class: "nav-link"%>
+    <button class="btn btn-dashboard"><%= link_to "Demo Update Next Academy", '/dustbins/1/update', method: "post", class: "nav-link"%></button>
+    <button class="btn btn-dashboard"><%= link_to "Pickup Points Update", '#', id: "update-pickup", class: "nav-link"%></button>
 
 </div>
-
-<tr>
 
 <div class="container">
 

@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
 
-        <div class="col-md-3" style="background:whitesmoke;">
+        <div class="col-md-3" id="chart" style="background:whitesmoke;">
             <p>Area Summary</p>
             <div class="list-group">
                 <a href="#" class="list-group-item list-group-item-action"><%= @dustbins.first.area.name %>
@@ -12,9 +12,7 @@
             <p>Dustbin Summary</p>
             <div class="list-group">
                 <% @dustbins.each do |d| %>
-                <a href="#" class="list-group-item list-group-item-action"><%= d.code %>
-                    
-                </a>
+                <a href="#" class="list-group-item list-group-item-action"><%= d.code %></a>
                 <% end %>
             </div>
         </div>

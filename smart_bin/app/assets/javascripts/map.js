@@ -251,11 +251,11 @@
             // if counter is more than steps (steps is also equivalent to index of coordinates)
             counter = 0
             // Enable button when animation ends so button can be clicked again.
-            document.getElementById('simulate').removeAttribute("disabled")
+            document.getElementById('sim-journey').removeAttribute("disabled")
           }
           counter = counter + 1;
         }
-        document.getElementById('simulate').addEventListener('click', function() {
+        document.getElementById('sim-journey').addEventListener('click', function() {
           // Disabled button after clicked once.
           this.setAttribute("disabled", "true")
           // Start the animation.
