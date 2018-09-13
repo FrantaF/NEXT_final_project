@@ -10,7 +10,10 @@ Rails.application.routes.draw do
 
   get "/chart" => "users#chart"
   get "/chart/:id" => "users#chart"
-  #post "/testing_chart" => "users#testing_chart"
+
+  get "/area" => "users#area"
+  get "/area/:id" => "users#area"
+ 
 
   post "/employee_profiles" => "users#employee_profiles"
   get "/employee_profiles" => "users#employee_profiles"

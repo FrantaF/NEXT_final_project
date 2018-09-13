@@ -1,0 +1,71 @@
+<h3 class="text-center">Area Report: <%= @area.name %> </h3>
+<br>
+
+<div class="row">
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">City</th>
+        <th scope="col">Dustbins Total</th>
+        <th scope="col">Capacity Total</th>
+        <th scope="col">Fill/Up Per Day (Avg)</th>
+        <th scope="col">Days for Collect (Avg)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row"><%= @area.id %> </th>
+        <td><%= @area.name %></td>
+        <td><%= @area.city.name %></td>
+        <td><%= @area.dustbins.count %></td>
+        <td>500 litres</td>
+        <td>50 litres</td>
+        <td>3 days</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<% @dustbins = @area.dustbins.order("fill_level_id DESC") %>
+
+<div class="col-md-12" id="reporting" style="background:whitesmoke;"><br>
+    <h3>Account Summary</h3>
+        <div class="row">
+            <div class="col-md-6">
+                <%= column_chart @dustbins.group(:id).limit(10).pluck("dustbins.code, sum((dustbins.fill_level_id-1)*10) as fill_level"),
+                title: "Latest Top Ten Highest Fill Level (%)",
+                colors: ['aquamarine'],
+                library: {
+                    tooltip: {
+                    pointFormat: 'Times Bought: <b>{point.y}</b>'
+                    }
+                } %>
+            </div>
+
+            <div class="col-md-6">
+                <%= line_chart @dustbins.group(:id).limit(10).pluck("dustbins.code, sum((dustbins.fill_level_id-1)*10) as fill_level"),
+                title: "Latest Top Ten Highest Fill Level (%)",
+                colors: ['blue'],
+                library: {
+                    tooltip: {
+                    pointFormat: 'Times Bought: <b>{point.y}</b>'
+                    }
+                } %>
+            </div>
+
+            <div class="col-md-12">
+                <%= line_chart @dustbins.limit(5).map { |d|
+                    {name: d.code, data: d.dustbin_stats.group_by_hour(:collected_at, format: "%b %d %l %P", last: 24).sum(:fill_level_id)}
+                },
+                title: "Top 5 Dustbins Last 24h Daily Trending",
+                library: {
+                tooltip: {
+                    pointFormat: 'Times Bought: <b>{point.y}</b>'
+                    }
+                }
+                %>
+            </div>
+    </div>
+</div>

@@ -3,10 +3,15 @@
 
         <div class="col-md-3" style="background:whitesmoke;">
             <p>Area Summary</p>
+            <% @area = Array.new  %>
+            <% @dustbins.each do |d| %>
+               <% @area << d.area %>
+            <% end %>
+            <% @area.uniq! %>
             <div class="list-group">
-                <a href="#" class="list-group-item list-group-item-action"><%= @dustbins.first.area.name %>
-                    <span class="badge badge-primary badge-pill"><%= @dustbins.first.area.dustbins.where({ :fill_level_id => 9..11 }).count %></span>
-                </a>
+                <% @area.uniq do |a| %>
+                    <%= link_to a.name, "/area/" + a.id.to_s, remote: true, class: "list-group-item list-group-item-action"  %>
+                <% end %>
             </div>
             <br>
             <p>Dustbin Summary</p>

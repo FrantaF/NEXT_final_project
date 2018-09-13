@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
    # before_action :authenticate_user!
    respond_to :html, :js
+
+   def area
+    @area = Area.find(params[:id]) 
+   end
    
    def chart
     # calculate bin stats here
