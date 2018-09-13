@@ -1,5 +1,59 @@
+<h3 class="text-center">Report: <%= @mybin.name %> </h3>
+<br>
+
+<div class="row">
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Code</th>
+        <th scope="col">Last Collected</th>
+        <th scope="col">Capacity</th>
+        <th scope="col">Fill/Up Per Day (Avg)</th>
+        <th scope="col">Days for Collect (Avg)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row"><%= @mybin.id %> </th>
+        <td><%= @mybin.name %></td>
+        <td><%= @mybin.code %></td>
+        <td><%= time_ago_in_words(@mybin.last_collected) %> ago</td>
+        <td>100 litres</td>
+        <td>20 litres</td>
+        <td>5 days</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="col-md-12">
+  <%= line_chart @dustbin_stat.group_by_hour(:collected_at, format: "%b %d %l %P", last: 48).sum("(fill_level_id-1)*10"),
+      title: "Fill Up(%) Trending of Last 48 Hours",
+      hAxis: {title: "Percentage(%)"},
+      vAxis: {title: "Date/Time"},
+      colors: ['purple'],
+      library: {
+        tooltip: {pointFormat: 'Times Bought: <b>{point.y}</b>'}
+      }
+  %>
+</div>
+
+<div class="col-md-12">
+  <%= column_chart @dustbin_stat.group_by_day(:collected_at, format: "%b %d", last: 7).sum("20"),
+      title: "Capacity(ℓ) per Day of Last 7 Days",
+      hAxis: {title: "Litres(ℓ)"},
+      vAxis: {title: "Date"},
+      colors: ['pink'],
+      library: {
+        tooltip: {pointFormat: 'Times Bought: <b>{point.y}</b>'}
+      }
+  %>
+</div>
+
 <div class="container">        
-  <canvas id="myChart"></canvas>
+  <canvas id="myChart1"></canvas>
 </div>
 
 <div class="container">        
@@ -181,48 +235,3 @@
       }
     });
 </script>
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-12" style="background:whitesmoke;"><br>
-            <h3>Account Summary</h3>
-            <div class="row">
-                <div class="col-md-6">
-                    <%= column_chart @dustbins.group(:id).limit(10).pluck("dustbins.code, sum((dustbins.fill_level_id-1)*10) as fill_level"),
-                    title: "Latest Top Ten Highest Fill Level (%)",
-                    colors: ['pink'],
-                    library: {
-                        tooltip: {
-                        pointFormat: 'Times Bought: <b>{point.y}</b>'
-                        }
-                    } %>
-                </div>
-
-                <div class="col-md-6">
-                    <%= line_chart @dustbins.group(:id).limit(10).pluck("dustbins.code, sum((dustbins.fill_level_id-1)*10) as fill_level"),
-                    title: "Latest Top Ten Highest Fill Level (%)",
-                    colors: ['aquamarine'],
-                    library: {
-                        tooltip: {
-                        pointFormat: 'Times Bought: <b>{point.y}</b>'
-                        }
-                    } %>
-                </div>
-
-                <div class="col-md-12">
-                    <%= line_chart @dustbins.limit(5).map { |d|
-                        {name: d.code, data: d.dustbin_stats.group_by_hour(:collected_at, format: "%b %d %l %P", last: 24).sum(:fill_level_id)}
-                    },
-                    title: "Top 5 Dustbins Last 24h Daily Trending",
-                    library: {
-                        tooltip: {
-                        pointFormat: 'Times Bought: <b>{point.y}</b>'
-                        }
-                    }
-                    %>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>

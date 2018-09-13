@@ -352,6 +352,8 @@
 
       function resetDropoff() {
         pickups = turf.featureCollection([]);
+        truckLocation = [101.619183, 3.135011];
+        depoLocation = [101.619183, 3.135011];
         pointHopper = {};
       }
       

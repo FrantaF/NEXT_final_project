@@ -1,13 +1,13 @@
 class UsersController < ApplicationController
    # before_action :authenticate_user!
+   respond_to :html, :js
    
-
    def chart
     # calculate bin stats here
     #assuming bin_id = 1   
-
+    @mybin = Dustbin.find(params[:id]) 
     #fill level of individual bin per hour
-    @dustbin_stat = DustbinStat.where("dustbin_id = '1'") 
+    @dustbin_stat = @mybin.dustbin_stats
     @fill_level_percentage = [] 
     
     @dustbin_stat.each do |record|
@@ -54,6 +54,11 @@ class UsersController < ApplicationController
         @fill_up_rate.push(fill_rate)      
       end
 
+    end
+
+    respond_to do |format|
+      format.html
+      format.js {render layout: false}
     end
 
 

@@ -8,7 +8,8 @@ Rails.application.routes.draw do
   get 'braintree/checkout' => "braintree#checkout"
   post 'braintree/checkout' => "braintree#checkout"
 
-  #get "/testing_chart" => "users#testing_chart"
+  get "/chart" => "users#chart"
+  get "/chart/:id" => "users#chart"
   #post "/testing_chart" => "users#testing_chart"
 
   post "/employee_profiles" => "users#employee_profiles"
